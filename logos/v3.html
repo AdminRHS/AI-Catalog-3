@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RH-S AI Catalog</title>
+    <style>
+        :root {
+            /* Light theme colors */
+            --bg-primary: #f5f5f5;
+            --bg-secondary: white;
+            --text-primary: #333;
+            --text-secondary: #666;
+            --text-tertiary: #aaa;
+            --border-color: #ddd;
+            --border-light: #eee;
+            --accent-primary: #0096E1;
+            --accent-hover: #00aaff;
+            --shadow: rgba(0,0,0,0.1);
+            --shadow-hover: rgba(0,0,0,0.15);
+            --shadow-strong: rgba(0,0,0,0.2);
+            --modal-backdrop: rgba(0,0,0,0.5);
+            
+            /* Status colors */
+            --success-bg: #d4edda;
+            --success-text: #155724;
+            --success-border: #c3e6cb;
+            --warning-bg: #fff3cd;
+            --warning-text: #856404;
+            --warning-border: #ffeaa7;
+            --danger-bg: #f8d7da;
+            --danger-text: #721c24;
+            --danger-border: #f5c6cb;
+            
+            /* Tag colors */
+            --tag-category: #667eea;
+            --tag-category-hover: #5a6fd8;
+            --tag-department: #28a745;
+            --tag-department-hover: #218838;
+            --tag-profession: #17a2b8;
+            --tag-profession-hover: #138496;
+            --tag-responsibility: #ffc107;
+            --tag-responsibility-hover: #e0a800;
+            --tag-responsibility-text: #212529;
+        }
+
+        [data-theme="dark"] {
+            /* Dark theme colors */
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2d2d2d;
+            --text-primary: #e0e0e0;
+            --text-secondary: #b0b0b0;
+            --text-tertiary: #666;
+            --border-color: #444;
+            --border-light: #333;
+            --accent-primary: #0096E1;
+            --accent-hover: #2FBAFF;
+            --shadow: rgba(0,0,0,0.3);
+            --shadow-hover: rgba(0,0,0,0.4);
+            --shadow-strong: rgba(0,0,0,0.6);
+            --modal-backdrop: rgba(0,0,0,0.7);
+            
+            /* Status colors - adjusted for dark theme */
+            --success-bg: #1e3a2e;
+            --success-text: #4ade80;
+            --success-border: #22543d;
+            --warning-bg: #3d2914;
+            --warning-text: #fbbf24;
+            --warning-border: #92400e;
+            --danger-bg: #3c1618;
+            --danger-text: #f87171;
+            --danger-border: #7f1d1d;
+
+            /* --- Theme-aware logo colors for Dark Mode --- */
+            .tool-card[data-name="GPT"] .tool-logo,
+            .tool-card[data-name="gamma"] .tool-logo,
+            .tool-card[data-name="midjourney"] .tool-logo,
+            .tool-card[data-name="Bolt.new"] .tool-logo,
+            .tool-card[data-name="V0"] .tool-logo,
+            .tool-card[data-name="Grok"] .tool-logo,
+            .tool-card[data-name="AI Studio"] .tool-logo {
+                filter: none; 
+            }
+            .tool-card[data-name="GitHub"] .tool-logo {
+                filter: invert(100%);
+            }
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .header {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, #f8f9fc 0%, #e8f2ff 30%, #fff9e6 70%, #f0f8ff 100%);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+            padding: 0 3rem;
+            transition: all 0.4s ease;
+        }
+        
+        [data-theme="dark"] .header {
+            background: linear-gradient(135deg, #0f1629 0%, #1e3a8a 50%, #1e40af 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+        }
+
+        .header-left { z-index: 3; }
+
+        .header-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1976d2 0%, #667eea 50%, #1976d2 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(25, 118, 210, 0.3);
+        }
+
+        .header-right {
+            z-index: 3;
+            background: linear-gradient(135deg, #1976d2 0%, #667eea 100%);
+            color: white;
+            padding: 1.2rem 3rem;
+            border-radius: 60px;
+            font-size: 1.6rem;
+            font-weight: 800;
+            box-shadow: 0 8px 25px rgba(25, 118, 210, 0.4);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .header-right:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 35px rgba(25, 118, 210, 0.5);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .nav-tabs {
+            background: var(--bg-secondary);
+            border-bottom: 3px solid var(--accent-primary);
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 5px var(--shadow);
+            position: relative;
+        }
+
+        .nav-tabs ul {
+            list-style: none;
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 50%;
+            right: 1rem;
+            transform: translateY(-50%);
+            background: var(--bg-secondary);
+            border: 2px solid var(--accent-primary);
+            border-radius: 25px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .theme-toggle:hover {
+            color: white;
+            background-color: var(--accent-primary);
+        }
+
+        .nav-tabs a {
+            display: block;
+            padding: 1rem 1.5rem;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            border-bottom: 3px solid transparent;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .nav-tabs a.active, .nav-tabs a:hover {
+            color: var(--accent-primary);
+            border-bottom-color: var(--accent-primary);
+        }
+
+        .active-filter-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            box-shadow: 0 2px 5px var(--shadow);
+        }
+
+        .active-filter-tag {
+            background: var(--accent-primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .active-filter-tag .remove {
+            cursor: pointer;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+
+        .clear-filters {
+            background: #dc3545;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin-left: 1rem;
+        }
+        
+        /* --- ✨ NEW --- Search Bar Styles */
+        .search-container {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        #search-bar {
+            width: 100%;
+            padding: 0.8rem 1rem 0.8rem 2.5rem;
+            font-size: 1rem;
+            border-radius: 25px;
+            border: 2px solid var(--border-color);
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+        #search-bar:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 10px rgba(0, 150, 225, 0.2);
+        }
+        .search-container::before {
+            content: '🔍';
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+        
+        .filter-toggle {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--accent-primary);
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px var(--shadow-strong);
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .filter-toggle.open {
+            left: 340px;
+        }
+        
+        .filter-toggle:hover {
+            background: var(--accent-hover);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(14px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .main-content { display: flex; gap: 2rem; margin-bottom: 2rem; }
+        
+        .sidebar {
+            width: 300px;
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px var(--shadow);
+            height: fit-content;
+            position: sticky;
+            top: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .sidebar.hidden {
+            transform: translateX(-120%);
+            position: fixed;
+            left: 0;
+            z-index: 100;
+        }
+        
+        .content-area { 
+            flex: 1; 
+            transition: margin-left 0.3s ease;
+        }
+
+        .content-area.expanded {
+            margin-left: 0;
+        }
+        
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .tool-card {
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px var(--shadow);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            animation: fadeInUp 520ms ease-out both;
+            border: 3px solid transparent;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.3);
+            border-color: var(--accent-primary);
+        }
+
+        /* --- Custom Card Outlines --- */
+        .tool-card[data-name="n8n"],
+        .tool-card[data-name="replit"],
+        .tool-card[data-name="lovable"],
+        .tool-card[data-name="Bolt.new"],
+        .tool-card[data-name="V0"],
+        .tool-card[data-name="Cursor"],
+        .tool-card[data-name="Claude Desktop"],
+        .tool-card[data-name="GitHub"],
+        .tool-card[data-name="GPT"],
+        .tool-card[data-name="Claude"],
+        .tool-card[data-name="AI Studio"] {
+            border-color: #28a745; /* Green */
+        }
+
+        .tool-card[data-name="gamma"],
+        .tool-card[data-name="NotebookLM"],
+        .tool-card[data-name="Notion"] {
+            border-color: #dc3545; /* Red */
+        }
+
+        .tool-card[data-name="midjourney"],
+        .tool-card[data-name="envato"],
+        .tool-card[data-name="DeepSite"] {
+            border-color: #6f42c1; /* Purple */
+        }
+
+        .tool-card[data-name="Genspark"],
+        .tool-card[data-name="Gemini"],
+        .tool-card[data-name="Grok"],
+        .tool-card[data-name="DropBox"] {
+            border-color: #d63384; /* Pink */
+        }
+        
+        .tool-card[data-name="n8n"]:hover,
+        .tool-card[data-name="replit"]:hover,
+        .tool-card[data-name="lovable"]:hover,
+        .tool-card[data-name="Bolt.new"]:hover,
+        .tool-card[data-name="V0"]:hover,
+        .tool-card[data-name="Cursor"]:hover,
+        .tool-card[data-name="Claude Desktop"]:hover,
+        .tool-card[data-name="GitHub"]:hover,
+        .tool-card[data-name="GPT"]:hover,
+        .tool-card[data-name="Claude"]:hover,
+        .tool-card[data-name="AI Studio"]:hover {
+            border-color: #28a745;
+            background-color: rgba(40, 167, 69, 0.1);
+        }
+
+        .tool-card[data-name="gamma"]:hover,
+        .tool-card[data-name="NotebookLM"]:hover,
+        .tool-card[data-name="Notion"]:hover {
+            border-color: #dc3545;
+            background-color: rgba(220, 53, 69, 0.1);
+        }
+
+        .tool-card[data-name="midjourney"]:hover,
+        .tool-card[data-name="envato"]:hover,
+        .tool-card[data-name="DeepSite"]:hover {
+            border-color: #6f42c1;
+            background-color: rgba(111, 66, 193, 0.1);
+        }
+
+        .tool-card[data-name="Genspark"]:hover,
+        .tool-card[data-name="Gemini"]:hover,
+        .tool-card[data-name="Grok"]:hover,
+        .tool-card[data-name="DropBox"]:hover {
+            border-color: #d63384;
+            background-color: rgba(214, 51, 132, 0.1);
+        }
+        
+        .subscription-corner {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            z-index: 10;
+        }
+
+        .tool-content { padding: 1.5rem; }
+        .tool-header { display: flex; align-items: center; margin-bottom: 1rem; gap: 0.75rem; }
+        .tool-logo { 
+            width: 80px; 
+            height: 80px; 
+            border-radius: 16px; 
+            object-fit: contain;
+            transition: transform 0.3s ease-in-out, filter 0.3s ease;
+        }
+        .tool-icon { 
+            font-size: 80px; 
+            line-height: 1; 
+            flex-shrink: 0;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* --- Theme-aware logo colors for Light Mode --- */
+        .tool-card[data-name="GPT"] .tool-logo,
+        .tool-card[data-name="gamma"] .tool-logo,
+        .tool-card[data-name="midjourney"] .tool-logo,
+        .tool-card[data-name="Bolt.new"] .tool-logo,
+        .tool-card[data-name="V0"] .tool-logo,
+        .tool-card[data-name="Grok"] .tool-logo,
+        .tool-card[data-name="AI Studio"] .tool-logo {
+            filter: invert(100%);
+        }
+
+        .tool-card:hover .tool-icon,
+        .tool-card:hover .tool-logo {
+            transform: rotate(-10deg) scale(1.2);
+        }
+
+        .tool-card h3 { color: var(--text-primary); font-size: 1.3rem; margin: 0; }
+        .tool-description { color: var(--text-secondary); margin-bottom: 1rem; font-size: 0.95rem; }
+
+        .tag {
+            padding: 0.35rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out; 
+            display: inline-flex;
+            align-items: center;
+        }
+        .tag:hover {
+            transform: translateY(-2px); 
+            box-shadow: 0 4px 12px var(--shadow-hover); 
+            filter: brightness(1.1); 
+        }
+        .tag-character-icon { margin-right: 0.5rem; }
+
+        .tag.category { background: var(--tag-category); color: white; }
+        .tag.department { background: var(--tag-department); color: white; }
+        .tag.profession { background: var(--tag-profession); color: white; }
+        .tag.responsibility { background: var(--tag-responsibility); color: var(--tag-responsibility-text); }
+        .tag.subscription-free { background: var(--success-bg); color: var(--success-text); border: 1px solid var(--success-border); }
+        .tag.subscription-freemium { background: var(--warning-bg); color: var(--warning-text); border: 1px solid var(--warning-border); }
+        .tag.subscription-paid { background: var(--danger-bg); color: var(--danger-text); border: 1px solid var(--danger-border); }
+        
+        .show-more-checkbox { display: none; }
+        .tags-visible { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem; }
+        .tags-hidden { display: none; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.75rem; }
+        .show-more-checkbox:checked ~ .tags-container .tags-hidden { display: flex; }
+        .show-more-checkbox:checked ~ .tags-container .show-more-label .show-text { display: none; }
+        .show-more-checkbox:checked ~ .tags-container .show-more-label .hide-text { display: inline; }
+
+        .show-more-label {
+            background: var(--bg-primary); color: var(--text-secondary); cursor: pointer;
+            font-size: 0.85rem; padding: 0.35rem 0.8rem; border-radius: 15px;
+            border: 1px solid var(--border-color); user-select: none;
+        }
+        .hide-text { display: none; }
+
+        .tool-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-light);
+        }
+        .last-updated { font-size: 0.8rem; color: var(--text-secondary); }
+        
+        .modal {
+            display: none; position: fixed; z-index: 1000; left: 0; top: 0;
+            width: 100%; height: 100%; background-color: var(--modal-backdrop);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: var(--bg-secondary); margin: 5% auto; padding: 2rem;
+            border-radius: 10px; width: 80%; max-width: 800px; max-height: 80vh;
+            overflow-y: auto; position: relative; box-shadow: 0 10px 30px var(--shadow-strong);
+            animation: fadeInUp 480ms ease-out both;
+        }
+
+        .close {
+            position: absolute; top: 1rem; right: 1.5rem;
+            color: var(--text-tertiary); font-size: 2rem; font-weight: bold; cursor: pointer;
+        }
+        .close:hover { color: var(--text-primary); }
+
+        .modal h2 { color: var(--text-primary); margin-bottom: 1rem; font-size: 2rem; }
+        .modal-section { margin-bottom: 2rem; }
+        .modal-section h3 {
+            color: var(--accent-primary); margin-bottom: 1rem; font-size: 1.3rem;
+            border-bottom: 2px solid var(--accent-primary); padding-bottom: 0.5rem;
+        }
+        .feature-list { display: flex; flex-wrap: wrap; gap: 0.6rem 0.9rem; }
+        .feature-tag {
+            background: var(--bg-primary); color: var(--text-primary); padding: 0.25rem 0.75rem;
+            border-radius: 15px; font-size: 0.9rem; border: 1px solid var(--border-color);
+        }
+        .visit-button, .export-button {
+            background: var(--accent-primary); color: white; padding: 1rem 2rem; border: none;
+            border-radius: 5px; font-size: 1rem; cursor: pointer; text-decoration: none;
+            display: inline-block; margin: 0.5rem 1rem 0.5rem 0;
+        }
+        .visit-button:hover, .export-button:hover { background: var(--accent-hover); }
+
+        .accounts-view { display: none; }
+        .account-card {
+            background: var(--bg-secondary); border-radius: 10px; padding: 1.5rem;
+            margin-bottom: 1.5rem; box-shadow: 0 2px 10px var(--shadow);
+            animation: fadeInUp 300ms ease both;
+        }
+        .account-card h3 { color: var(--text-primary); margin-bottom: 1rem; font-size: 1.3rem; }
+        .account-tools { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .account-tool-tag {
+            background: var(--accent-primary); color: white; padding: 0.25rem 0.75rem;
+            border-radius: 15px; font-size: 0.9rem; cursor: pointer; transition: all 0.3s ease;
+        }
+        .account-tool-tag:hover { background: var(--accent-hover); }
+
+        @media (max-width: 768px) {
+            .header { height: auto; padding: 1.5rem 1rem; flex-direction: column; text-align: center; gap: 1rem; }
+            .header-title { font-size: 2.5rem; }
+            .header-right { font-size: 1.2rem; padding: 0.8rem 1.5rem; }
+            .main-content { flex-direction: column; }
+            .sidebar { width: 100%; position: static; transform: none; }
+            .sidebar.hidden { display: none; }
+            .tools-grid { grid-template-columns: 1fr; }
+            .nav-tabs ul { flex-wrap: wrap; justify-content: center; }
+            .theme-toggle { position: static; transform: none; margin: 0.5rem auto; display: table; }
+            .filter-toggle { display: block; bottom: 20px; top: auto; transform: none; }
+            .filter-toggle.open { left: 10px; }
+        }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <h1 class="header-title">AI Catalog</h1>
+        </div>
+        <div class="header-right">
+            REMOTE HELPERS
+        </div>
+    </header>
+
+    <nav class="nav-tabs">
+        <ul>
+            <li><a class="tab-link active" data-tab="catalog">AI Tools Catalog</a></li>
+            <li><a class="tab-link" data-tab="accounts">Account Management</a></li>
+        </ul>
+        <button class="theme-toggle" id="theme-toggle">
+            <span class="theme-icon">🌙</span>
+            <span>Dark</span>
+        </button>
+    </nav>
+
+    <div class="container">
+        <div id="catalog-view" class="tab-content">
+            <button class="filter-toggle" id="filter-toggle">🔍</button>
+            
+            <div class="search-container">
+                <input type="text" id="search-bar" placeholder="Search by name or description...">
+            </div>
+
+            <div id="active-filters" class="active-filter-tags hidden">
+                <div id="active-filter-list"></div>
+                <button class="clear-filters">Clear All</button>
+            </div>
+            
+            <div class="main-content">
+                <aside class="sidebar hidden" id="sidebar">
+                    <div class="filter-section">
+                        <h3>Category</h3>
+                        <select class="filter-dropdown" id="category-filter">
+                            <option value="">All Categories</option>
+                            <option value="AI Assistant">AI Assistant</option>
+                            <option value="Automation">Automation</option>
+                            <option value="Design">Design</option>
+                            <option value="Hosting">Hosting</option>
+                            <option value="Programming">Programming</option>
+                            <option value="Tools">Tools</option>
+                            <option value="Web Design">Web Design</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-section">
+                        <h3>Department</h3>
+                        <select class="filter-dropdown" id="department-filter">
+                            <option value="">All Departments</option>
+                            <option value="Designers">Designers</option>
+                            <option value="Developers">Developers</option>
+                            <option value="Managers">Managers</option>
+                            <option value="Marketers">Marketers</option>
+                            <option value="Videographers">Videographers</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-section">
+                        <h3>Profession</h3>
+                        <select class="filter-dropdown" id="profession-filter">
+                            <option value="">All Professions</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-section">
+                        <h3>Responsibility</h3>
+                        <select class="filter-dropdown" id="responsibility-filter">
+                            <option value="">All Responsibilities</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-section">
+                        <h3>Subscription</h3>
+                        <select class="filter-dropdown" id="subscription-filter">
+                            <option value="">All Subscriptions</option>
+                            <option value="Free">Free</option>
+                            <option value="Freemium">Freemium</option>
+                            <option value="Paid">Paid</option>
+                        </select>
+                    </div>
+                    <div class="filter-section">
+                         <button class="export-button" id="export-bookmarks" style="width: 100%; margin-top: 1rem;">Export Bookmarks</button>
+                    </div>
+                </aside>
+
+                <main class="content-area expanded" id="content-area">
+                    <div class="tools-grid" id="tools-grid">
+                        <div class="tool-card" id="tool-001" data-name="n8n" data-url="https://n8n.io/" data-category="Automation" data-description="Visual workflow automation platform with 400+ integrations for connecting apps and services." data-key-features='["Visual workflow builder","400+ integrations","Self-hostable","Custom functions","API integration"]' data-subscription="Freemium" data-account="dev@rh-s.com" data-last-updated="2025-09-16" data-whats-new="Added new AI nodes and improved performance for large workflows. Community edition remains free for self-hosting." data-professions='["back end developer","system administrator","project manager"]' data-responsibilities='["Automate Workflows","Write Code","Manage Information"]' data-departments='["Developers","Managers"]'>
+                            <div class="subscription-corner"><span class="tag subscription-freemium">Freemium</span></div>
+                            <div class="tool-content">
+                                <div class="tool-header"><img src="../logos/n8n-color.png" class="tool-logo" alt="n8n logo"><h3>n8n</h3></div>
+                                <div class="tool-description">Visual workflow automation platform with 400+ integrations for connecting apps and services.</div>
+                                <input type="checkbox" id="show-more-001" class="show-more-checkbox"><div class="tags-container">
+                                    <div class="tags-visible">
+                                        <span class="tag category" onclick="onTagClick('category', 'Automation')">Automation</span>
+                                        <span class="tag department" onclick="onTagClick('department', 'Developers')"><span class="tag-character-icon">🦗</span>Developers</span>
+                                        <label for="show-more-001" class="show-more-label"><span class="show-text">+6 more</span><span class="hide-text">Show less</span></label>
+                                    </div>
+                                    <div class="tags-hidden">
+                                        <span class="tag department" onclick="onTagClick('department', 'Managers')"><span class="tag-character-icon">🐈</span>Managers</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'back end developer')"><span class="tag-character-icon">🦗</span>back end developer</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'system administrator')"><span class="tag-character-icon">🦗</span>system administrator</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'project manager')"><span class="tag-character-icon">🐅</span>project manager</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Automate Workflows')">Automate Workflows</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Write Code')">Write Code</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Manage Information')">Manage Information</span>
+                                    </div>
+                                </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-16</div></div>
+                            </div>
+                        </div>
+                        <div class="tool-card" id="tool-002" data-name="gamma" data-url="https://gamma.app/" data-category="Design" data-description="AI-powered presentation and website creation tool that generates content from text prompts." data-key-features='["AI presentation generation","Text-to-presentation","Multi-format export","Real-time collaboration","Template library"]' data-subscription="Freemium" data-account="sales@rh-s.com" data-last-updated="2025-09-15" data-whats-new="Enhanced AI models for better content generation and added new export formats including video presentations." data-professions='["project manager","product manager","content manager","sales manager"]' data-responsibilities='["Create Presentations","Design Websites","Write Content"]' data-departments='["Managers","Marketers"]'>
+                            <div class="subscription-corner"><span class="tag subscription-freemium">Freemium</span></div>
+                            <div class="tool-content">
+                                <div class="tool-header"><img src="../logos/gammai-removebg-preview.png" class="tool-logo" alt="Gamma logo"><h3>Gamma</h3></div>
+                                <div class="tool-description">AI-powered presentation and website creation tool that generates content from text prompts.</div>
+                                <input type="checkbox" id="show-more-002" class="show-more-checkbox"><div class="tags-container">
+                                    <div class="tags-visible">
+                                        <span class="tag category" onclick="onTagClick('category', 'Design')">Design</span>
+                                        <span class="tag department" onclick="onTagClick('department', 'Managers')"><span class="tag-character-icon">🐈</span>Managers</span>
+                                        <label for="show-more-002" class="show-more-label"><span class="show-text">+8 more</span><span class="hide-text">Show less</span></label>
+                                    </div>
+                                    <div class="tags-hidden">
+                                        <span class="tag department" onclick="onTagClick('department', 'Marketers')"><span class="tag-character-icon">🦈</span>Marketers</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'project manager')"><span class="tag-character-icon">🐅</span>project manager</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'product manager')"><span class="tag-character-icon">🐅</span>product manager</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'content manager')"><span class="tag-character-icon">🐙</span>content manager</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'sales manager')"><span class="tag-character-icon">🐅</span>sales manager</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Create Presentations')">Create Presentations</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Design Websites')">Design Websites</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Write Content')">Write Content</span>
+                                    </div>
+                                </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-15</div></div>
+                            </div>
+                        </div>
+                        <div class="tool-card" id="tool-003" data-name="midjourney" data-url="https://www.midjourney.com/" data-category="Design" data-description="Leading AI image generation platform for creating artistic and photorealistic images from text prompts." data-key-features='["Photorealistic rendering","Artistic styles","Commercial usage rights","Community gallery","Style references"]' data-subscription="Paid" data-account="niko@rh-s.com" data-last-updated="2025-09-14" data-whats-new="V6.1 model released with improved hand rendering and better text generation within images." data-professions='["graphic designer","illustrator","content manager","social media manager"]' data-responsibilities='["Generate Images","Source Assets"]' data-departments='["Designers","Marketers"]'>
+                            <div class="subscription-corner"><span class="tag subscription-paid">Paid</span></div>
+                            <div class="tool-content">
+                                <div class="tool-header"><img src="../logos/midjourney.png" class="tool-logo" alt="MidJourney logo"><h3>MidJourney</h3></div>
+                                <div class="tool-description">Leading AI image generation platform for creating artistic and photorealistic images from text prompts.</div>
+                                <input type="checkbox" id="show-more-003" class="show-more-checkbox"><div class="tags-container">
+                                    <div class="tags-visible">
+                                        <span class="tag category" onclick="onTagClick('category', 'Design')">Design</span>
+                                        <span class="tag department" onclick="onTagClick('department', 'Designers')"><span class="tag-character-icon">🦉</span>Designers</span>
+                                        <label for="show-more-003" class="show-more-label"><span class="show-text">+7 more</span><span class="hide-text">Show less</span></label>
+                                    </div>
+                                    <div class="tags-hidden">
+                                        <span class="tag department" onclick="onTagClick('department', 'Marketers')"><span class="tag-character-icon">🦈</span>Marketers</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'graphic designer')"><span class="tag-character-icon">🦜</span>graphic designer</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'illustrator')"><span class="tag-character-icon">🐦</span>illustrator</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'content manager')"><span class="tag-character-icon">🐙</span>content manager</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'social media manager')"><span class="tag-character-icon">🐅</span>social media manager</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Generate Images')">Generate Images</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Source Assets')">Source Assets</span>
+                                    </div>
+                                </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-14</div></div>
+                            </div>
+                        </div>
+                        <div class="tool-card" id="tool-004" data-name="envato" data-url="https://elements.envato.com/" data-category="Design" data-description="All-in-one creative subscription with 20+ million graphics, templates, videos, and audio files." data-key-features='["20M+ creative assets","Commercial license","Template library","Video assets","Audio library"]' data-subscription="Paid" data-account="niko@rh-s.com" data-last-updated="2025-09-16" data-whats-new="Added new AI-generated templates and expanded video library with 4K content." data-professions='["graphic designer","web designer","video editor","content manager","motion designer"]' data-responsibilities='["Source Assets","Design Websites","Create Presentations"]' data-departments='["Designers","Videographers","Marketers"]'>
+                            <div class="subscription-corner"><span class="tag subscription-paid">Paid</span></div>
+                            <div class="tool-content">
+                               <div class="tool-header"><img src="../logos/Envato-removebg-preview.png" class="tool-logo" alt="Envato Elements logo"><h3>Envato Elements</h3></div>
+                                <div class="tool-description">All-in-one creative subscription with 20+ million graphics, templates, videos, and audio files.</div>
+                                <input type="checkbox" id="show-more-004" class="show-more-checkbox"><div class="tags-container">
+                                    <div class="tags-visible">
+                                        <span class="tag category" onclick="onTagClick('category', 'Design')">Design</span>
+                                        <span class="tag department" onclick="onTagClick('department', 'Designers')"><span class="tag-character-icon">🦉</span>Designers</span>
+                                        <label for="show-more-004" class="show-more-label"><span class="show-text">+9 more</span><span class="hide-text">Show less</span></label>
+                                    </div>
+                                    <div class="tags-hidden">
+                                        <span class="tag department" onclick="onTagClick('department', 'Videographers')"><span class="tag-character-icon">🦎</span>Videographers</span>
+                                        <span class="tag department" onclick="onTagClick('department', 'Marketers')"><span class="tag-character-icon">🦈</span>Marketers</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'graphic designer')"><span class="tag-character-icon">🦜</span>graphic designer</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'web designer')"><span class="tag-character-icon">🦉</span>web designer</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'video editor')"><span class="tag-character-icon">🦎</span>video editor</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'content manager')"><span class="tag-character-icon">🐙</span>content manager</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'motion designer')"><span class="tag-character-icon">🦉</span>motion designer</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Source Assets')">Source Assets</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Design Websites')">Design Websites</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Create Presentations')">Create Presentations</span>
+                                    </div>
+                                </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-16</div></div>
+                            </div>
+                        </div>
+                        <div class="tool-card" id="tool-005" data-name="replit" data-url="https://replit.com/" data-category="Web Design" data-description="Browser-based IDE with AI agents that build full-stack applications from natural language." data-key-features='["AI-powered development","Real-time collaboration","Instant deployment","Multiple frameworks","Cloud hosting"]' data-subscription="Freemium" data-account="dev@rh-s.com" data-last-updated="2025-09-16" data-whats-new="Launched Replit Agent 2.0 with improved code generation and better framework support." data-professions='["full stack developer","front end developer","back end developer"]' data-responsibilities='["Write Code","Debug Software","Deploy Applications","Design Websites"]' data-departments='["Developers"]'>
+                            <div class="subscription-corner"><span class="tag subscription-freemium">Freemium</span></div>
+                            <div class="tool-content">
+                                <div class="tool-header"><img src="https://www.google.com/s2/favicons?sz=64&domain=replit.com" class="tool-logo" alt="Replit logo"><h3>Replit</h3></div>
+                                <div class="tool-description">Browser-based IDE with AI agents that build full-stack applications from natural language.</div>
+                                <input type="checkbox" id="show-more-005" class="show-more-checkbox"><div class="tags-container">
+                                    <div class="tags-visible">
+                                        <span class="tag category" onclick="onTagClick('category', 'Web Design')">Web Design</span>
+                                        <span class="tag department" onclick="onTagClick('department', 'Developers')"><span class="tag-character-icon">🦗</span>Developers</span>
+                                        <label for="show-more-005" class="show-more-label"><span class="show-text">+6 more</span><span class="hide-text">Show less</span></label>
+                                    </div>
+                                    <div class="tags-hidden">
+                                        <span class="tag profession" onclick="onTagClick('profession', 'full stack developer')"><span class="tag-character-icon">🦗</span>full stack developer</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'front end developer')"><span class="tag-character-icon">🦗</span>front end developer</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'back end developer')"><span class="tag-character-icon">🦗</span>back end developer</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Write Code')">Write Code</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Debug Software')">Debug Software</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Deploy Applications')">Deploy Applications</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Design Websites')">Design Websites</span>
+                                    </div>
+                                </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-16</div></div>
+                            </div>
+                        </div>
+                        <div class="tool-card" id="tool-006" data-name="lovable" data-url="https://lovable.dev/" data-category="Web Design" data-description="AI-powered full-stack web application builder with GitHub integration and real-time rendering." data-key-features='["Full-stack development","GitHub sync","Real-time rendering","Component library","Deployment automation"]' data-subscription="Freemium" data-account="dev@rh-s.com" data-last-updated="2025-09-15" data-whats-new="Added support for serverless functions and improved React component generation." data-professions='["full stack developer","web designer"]' data-responsibilities='["Write Code","Deploy Applications","Design Websites"]' data-departments='["Developers","Designers"]'>
+                            <div class="subscription-corner"><span class="tag subscription-freemium">Freemium</span></div>
+                            <div class="tool-content">
+                                <div class="tool-header"><img src="https://www.google.com/s2/favicons?sz=64&domain=lovable.dev" class="tool-logo" alt="Lovable logo"><h3>Lovable</h3></div>
+                                <div class="tool-description">AI-powered full-stack web application builder with GitHub integration and real-time rendering.</div>
+                                <input type="checkbox" id="show-more-006" class="show-more-checkbox"><div class="tags-container">
+                                    <div class="tags-visible">
+                                        <span class="tag category" onclick="onTagClick('category', 'Web Design')">Web Design</span>
+                                        <span class="tag department" onclick="onTagClick('department', 'Developers')"><span class="tag-character-icon">🦗</span>Developers</span>
+                                        <label for="show-more-006" class="show-more-label"><span class="show-text">+4 more</span><span class="hide-text">Show less</span></label>
+                                    </div>
+                                    <div class="tags-hidden">
+                                        <span class="tag department" onclick="onTagClick('department', 'Designers')"><span class="tag-character-icon">🦉</span>Designers</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'full stack developer')"><span class="tag-character-icon">🦗</span>full stack developer</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'web designer')"><span class="tag-character-icon">🦉</span>web designer</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Write Code')">Write Code</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Deploy Applications')">Deploy Applications</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Design Websites')">Design Websites</span>
+                                    </div>
+                                </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-15</div></div>
+                            </div>
+                        </div>
+                        <div class="tool-card" id="tool-007" data-name="Bolt.new" data-url="https://bolt.new/" data-category="Web Design" data-description="AI web development platform for building full-stack applications with WebContainers technology." data-key-features='["WebContainers technology","Multiple frameworks","Instant preview","Code export","AI assistance"]' data-subscription="Freemium" data-account="dev@rh-s.com" data-last-updated="2025-09-14" data-whats-new="Updated pricing model and enhanced AI capabilities with GPT-4 Turbo integration." data-professions='["full stack developer","front end developer"]' data-responsibilities='["Write Code","Debug Software","Deploy Applications"]' data-departments='["Developers"]'>
+                            <div class="subscription-corner"><span class="tag subscription-freemium">Freemium</span></div>
+                            <div class="tool-content">
+                                <div class="tool-header"><img src="../logos/bolt5-removebg-preview.png" class="tool-logo" alt="Bolt.new logo"><h3>Bolt.new</h3></div>
+                                <div class="tool-description">AI web development platform for building full-stack applications with WebContainers technology.</div>
+                                <input type="checkbox" id="show-more-007" class="show-more-checkbox"><div class="tags-container">
+                                    <div class="tags-visible">
+                                        <span class="tag category" onclick="onTagClick('category', 'Web Design')">Web Design</span>
+                                        <span class="tag department" onclick="onTagClick('department', 'Developers')"><span class="tag-character-icon">🦗</span>Developers</span>
+                                        <label for="show-more-007" class="show-more-label"><span class="show-text">+4 more</span><span class="hide-text">Show less</span></label>
+                                    </div>
+                                    <div class="tags-hidden">
+                                        <span class="tag profession" onclick="onTagClick('profession', 'full stack developer')"><span class="tag-character-icon">🦗</span>full stack developer</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'front end developer')"><span class="tag-character-icon">🦗</span>front end developer</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Write Code')">Write Code</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Debug Software')">Debug Software</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Deploy Applications')">Deploy Applications</span>
+                                    </div>
+                                </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-14</div></div>
+                            </div>
+                        </div>
+                        <div class="tool-card" id="tool-008" data-name="V0" data-url="https://v0.dev/" data-category="Web Design" data-description="Vercel's AI-powered UI generator that creates React/Next.js components from natural language." data-key-features='["React component generation","Next.js integration","Shadcn/ui components","Tailwind CSS","Production-ready code"]' data-subscription="Freemium" data-account="dev@rh-s.com" data-last-updated="2025-09-16" data-whats-new="Enhanced component library and improved code quality with better TypeScript support." data-professions='["front end developer","ui ux designer"]' data-responsibilities='["Write Code","Design Websites"]' data-departments='["Developers","Designers"]'>
+                            <div class="subscription-corner"><span class="tag subscription-freemium">Freemium</span></div>
+                            <div class="tool-content">
+                                <div class="tool-header"><img src="../logos/v0.png" class="tool-logo" alt="V0 logo"><h3>V0</h3></div>
+                                <div class="tool-description">Vercel's AI-powered UI generator that creates React/Next.js components from natural language.</div>
+                                <input type="checkbox" id="show-more-008" class="show-more-checkbox"><div class="tags-container">
+                                    <div class="tags-visible">
+                                        <span class="tag category" onclick="onTagClick('category', 'Web Design')">Web Design</span>
+                                        <span class="tag department" onclick="onTagClick('department', 'Developers')"><span class="tag-character-icon">🦗</span>Developers</span>
+                                        <label for="show-more-008" class="show-more-label"><span class="show-text">+3 more</span><span class="hide-text">Show less</span></label>
+                                    </div>
+                                    <div class="tags-hidden">
+                                        <span class="tag department" onclick="onTagClick('department', 'Designers')"><span class="tag-character-icon">🦉</span>Designers</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'front end developer')"><span class="tag-character-icon">🦗</span>front end developer</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'ui ux designer')"><span class="tag-character-icon">🦉</span>ui ux designer</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Write Code')">Write Code</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Design Websites')">Design Websites</span>
+                                    </div>
+                                </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-16</div></div>
+                            </div>
+                        </div>
+                        <div class="tool-card" id="tool-009" data-name="Genspark" data-url="https://www.genspark.ai/" data-category="Web Design" data-description="Comprehensive Super Agent AI workspace for website building, presentations, and research." data-key-features='["Multi-format creation","Research capabilities","Website building","Presentation tools","Content generation"]' data-subscription="Freemium" data-account="lg@rh-s.com" data-last-updated="2025-09-15" data-whats-new="Launched personal agents with GPT-4.1 and OpenAI Realtime API integration." data-professions='["content manager","project manager","web designer"]' data-responsibilities='["Design Websites","Create Presentations","Research Topics","Generate Images"]' data-departments='["Marketers","Managers","Designers"]'>
+                            <div class="subscription-corner"><span class="tag subscription-freemium">Freemium</span></div>
+                            <div class="tool-content">
+                                <div class="tool-header"><img src="../logos/genspark-icon.png" class="tool-logo" alt="Genspark logo"><h3>Genspark</h3></div>
+                                <div class="tool-description">Comprehensive Super Agent AI workspace for website building, presentations, and research.</div>
+                                <input type="checkbox" id="show-more-009" class="show-more-checkbox"><div class="tags-container">
+                                    <div class="tags-visible">
+                                        <span class="tag category" onclick="onTagClick('category', 'Web Design')">Web Design</span>
+                                        <span class="tag department" onclick="onTagClick('department', 'Marketers')"><span class="tag-character-icon">🦈</span>Marketers</span>
+                                        <label for="show-more-009" class="show-more-label"><span class="show-text">+7 more</span><span class="hide-text">Show less</span></label>
+                                    </div>
+                                    <div class="tags-hidden">
+                                        <span class="tag department" onclick="onTagClick('department', 'Managers')"><span class="tag-character-icon">🐈</span>Managers</span>
+                                        <span class="tag department" onclick="onTagClick('department', 'Designers')"><span class="tag-character-icon">🦉</span>Designers</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'content manager')"><span class="tag-character-icon">🐙</span>content manager</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'project manager')"><span class="tag-character-icon">🐅</span>project manager</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'web designer')"><span class="tag-character-icon">🦉</span>web designer</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Design Websites')">Design Websites</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Create Presentations')">Create Presentations</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Research Topics')">Research Topics</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Generate Images')">Generate Images</span>
+                                    </div>
+                                </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-15</div></div>
+                            </div>
+                        </div>
+                        <div class="tool-card" id="tool-010" data-name="DeepSite" data-url="https://deepsiteai.com/" data-category="Web Design" data-description="Affordable AI website generator powered by DeepSeek V3 with single HTML file output." data-key-features='["Single HTML output","Responsive design","DeepSeek V3 powered","No coding required","Fast generation"]' data-subscription="Freemium" data-account="dev@rh-s.com" data-last-updated="2025-09-13" data-whats-new="Integrated DeepSeek V3 model for improved website generation and added responsive templates." data-professions='["web designer","wordpress designer"]' data-responsibilities='["Design Websites","Write Code"]' data-departments='["Designers"]'>
+                            <div class="subscription-corner"><span class="tag subscription-freemium">Freemium</span></div>
+                            <div class="tool-content">
+                                <div class="tool-header"><img src="../logos/deepsite.png" class="tool-logo" alt="DeepSite logo"><h3>DeepSite</h3></div>
+                                <div class="tool-description">Affordable AI website generator powered by DeepSeek V3 with single HTML file output.</div>
+                                <input type="checkbox" id="show-more-010" class="show-more-checkbox"><div class="tags-container">
+                                    <div class="tags-visible">
+                                        <span class="tag category" onclick="onTagClick('category', 'Web Design')">Web Design</span>
+                                        <span class="tag department" onclick="onTagClick('department', 'Designers')"><span class="tag-character-icon">🦉</span>Designers</span>
+                                        <label for="show-more-010" class="show-more-label"><span class="show-text">+3 more</span><span class="hide-text">Show less</span></label>
+                                    </div>
+                                    <div class="tags-hidden">
+                                        <span class="tag profession" onclick="onTagClick('profession', 'web designer')"><span class="tag-character-icon">🦉</span>web designer</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'wordpress designer')"><span class="tag-character-icon">🦉</span>wordpress designer</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Design Websites')">Design Websites</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Write Code')">Write Code</span>
+                                    </div>
+                                </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-13</div></div>
+                            </div>
+                        </div>
+                        <div class="tool-card" id="tool-011" data-name="Cursor" data-url="https://cursor.sh/" data-category="Programming" data-description="AI-first code editor with advanced completion and natural language editing capabilities." data-key-features='["AI code completion","Context-aware assistance","Natural language editing","Local file access","Multiple AI models"]' data-subscription="Freemium" data-account="dev@rh-s.com" data-last-updated="2025-09-16" data-whats-new="Enhanced security features and improved AI model performance with better context understanding." data-professions='["back end developer","front end developer","full stack developer","mobile developer"]' data-responsibilities='["Write Code","Debug Software","Analyze Data"]' data-departments='["Developers"]'>
+                            <div class="subscription-corner"><span class="tag subscription-freemium">Freemium</span></div>
+                            <div class="tool-content">
+                                <div class="tool-header"><img src="../logos/images.jpg" class="tool-logo" alt="Cursor logo"><h3>Cursor</h3></div>
+                                <div class="tool-description">AI-first code editor with advanced completion and natural language editing capabilities.</div>
+                                <input type="checkbox" id="show-more-011" class="show-more-checkbox"><div class="tags-container">
+                                    <div class="tags-visible">
+                                        <span class="tag category" onclick="onTagClick('category', 'Programming')">Programming</span>
+                                        <span class="tag department" onclick="onTagClick('department', 'Developers')"><span class="tag-character-icon">🦗</span>Developers</span>
+                                        <label for="show-more-011" class="show-more-label"><span class="show-text">+6 more</span><span class="hide-text">Show less</span></label>
+                                    </div>
+                                    <div class="tags-hidden">
+                                        <span class="tag profession" onclick="onTagClick('profession', 'back end developer')"><span class="tag-character-icon">🦗</span>back end developer</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'front end developer')"><span class="tag-character-icon">🦗</span>front end developer</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'full stack developer')"><span class="tag-character-icon">🦗</span>full stack developer</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'mobile developer')"><span class="tag-character-icon">🦗</span>mobile developer</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Write Code')">Write Code</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Debug Software')">Debug Software</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Analyze Data')">Analyze Data</span>
+                                    </div>
+                                </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-16</div></div>
+                            </div>
+                        </div>
+                        <div class="tool-card" id="tool-012" data-name="Claude Desktop" data-url="https://claude.ai/desktop" data-category="Programming" data-description="Desktop integration of Claude AI with local file access and Model Context Protocol support." data-key-features='["Desktop integration","Local file access","Model Context Protocol","Advanced reasoning","Code analysis"]' data-subscription="Freemium" data-account="dev@rh-s.com" data-last-updated="2025-09-16" data-whats-new="Added support for more file types and improved integration with development tools." data-professions='["back end developer","front end developer","analyst","content manager"]' data-responsibilities='["Write Code","Analyze Data","Research Topics","Manage Information"]' data-departments='["Developers","Managers","Marketers"]'>
+                            <div class="subscription-corner"><span class="tag subscription-freemium">Freemium</span></div>
+                            <div class="tool-content">
+                                <div class="tool-header"><img src="../logos/Claude_AI_symbol.svg.png" class="tool-logo" alt="Claude Desktop logo"><h3>Claude Desktop</h3></div>
+                                <div class="tool-description">Desktop integration of Claude AI with local file access and Model Context Protocol support.</div>
+                                <input type="checkbox" id="show-more-012" class="show-more-checkbox"><div class="tags-container">
+                                    <div class="tags-visible">
+                                        <span class="tag category" onclick="onTagClick('category', 'Programming')">Programming</span>
+                                        <span class="tag department" onclick="onTagClick('department', 'Developers')"><span class="tag-character-icon">🦗</span>Developers</span>
+                                        <label for="show-more-012" class="show-more-label"><span class="show-text">+7 more</span><span class="hide-text">Show less</span></label>
+                                    </div>
+                                    <div class="tags-hidden">
+                                        <span class="tag department" onclick="onTagClick('department', 'Managers')"><span class="tag-character-icon">🐈</span>Managers</span>
+                                        <span class="tag department" onclick="onTagClick('department', 'Marketers')"><span class="tag-character-icon">🦈</span>Marketers</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'back end developer')"><span class="tag-character-icon">🦗</span>back end developer</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'front end developer')"><span class="tag-character-icon">🦗</span>front end developer</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'analyst')"><span class="tag-character-icon">🐈</span>analyst</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'content manager')"><span class="tag-character-icon">🐙</span>content manager</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Write Code')">Write Code</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Analyze Data')">Analyze Data</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Research Topics')">Research Topics</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Manage Information')">Manage Information</span>
+                                    </div>
+                                </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-16</div></div>
+                            </div>
+                        </div>
+                        <div class="tool-card" id="tool-013" data-name="GitHub" data-url="https://github.com/" data-category="Hosting" data-description="Essential code collaboration platform with version control, CI/CD, and project management." data-key-features='["Git version control","CI/CD pipelines","Issue tracking","Project management","Code review"]' data-subscription="Freemium" data-account="dev@rh-s.com" data-last-updated="2025-09-16" data-whats-new="Enhanced GitHub Copilot integration and improved Actions workflow capabilities." data-professions='["back end developer","front end developer","full stack developer","qa","system administrator"]' data-responsibilities='["Host Repositories","Write Code","Debug Software","Deploy Applications","Automate Workflows"]' data-departments='["Developers"]'>
+                            <div class="subscription-corner"><span class="tag subscription-freemium">Freemium</span></div>
+                            <div class="tool-content">
+                                <div class="tool-header"><img src="../logos/github_logo_icon_229278.png" class="tool-logo" alt="GitHub logo"><h3>GitHub</h3></div>
+                                <div class="tool-description">Essential code collaboration platform with version control, CI/CD, and project management.</div>
+                                <input type="checkbox" id="show-more-013" class="show-more-checkbox"><div class="tags-container">
+                                    <div class="tags-visible">
+                                        <span class="tag category" onclick="onTagClick('category', 'Hosting')">Hosting</span>
+                                        <span class="tag department" onclick="onTagClick('department', 'Developers')"><span class="tag-character-icon">🦗</span>Developers</span>
+                                        <label for="show-more-013" class="show-more-label"><span class="show-text">+9 more</span><span class="hide-text">Show less</span></label>
+                                    </div>
+                                    <div class="tags-hidden">
+                                        <span class="tag profession" onclick="onTagClick('profession', 'back end developer')"><span class="tag-character-icon">🦗</span>back end developer</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'front end developer')"><span class="tag-character-icon">🦗</span>front end developer</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'full stack developer')"><span class="tag-character-icon">🦗</span>full stack developer</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'qa')"><span class="tag-character-icon">🦗</span>qa</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'system administrator')"><span class="tag-character-icon">🦗</span>system administrator</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Host Repositories')">Host Repositories</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Write Code')">Write Code</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Debug Software')">Debug Software</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Deploy Applications')">Deploy Applications</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Automate Workflows')">Automate Workflows</span>
+                                    </div>
+                                </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-16</div></div>
+                            </div>
+                        </div>
+                        <div class="tool-card" id="tool-014" data-name="GPT" data-url="https://openai.com/chatgpt" data-category="AI Assistant" data-description="OpenAI's flagship conversational AI with advanced reasoning, coding, and multimodal capabilities." data-key-features='["Advanced reasoning","Code generation","Multimodal input","Custom instructions","Plugin ecosystem"]' data-subscription="Freemium" data-account="admin@rh-s.com" data-last-updated="2025-09-16" data-whats-new="GPT-5 preview released with enhanced reasoning and improved coding capabilities." data-professions='["back end developer","content manager","analyst","project manager","copywriter"]' data-responsibilities='["Write Code","Debug Software","Write Content","Research Topics","Analyze Data","Automate Workflows"]' data-departments='["Developers","Marketers","Managers"]'>
+                            <div class="subscription-corner"><span class="tag subscription-freemium">Freemium</span></div>
+                            <div class="tool-content">
+                                <div class="tool-header"><img src="../logos/chatgptWhite-removebg-preview.png" class="tool-logo" alt="GPT logo"><h3>GPT</h3></div>
+                                <div class="tool-description">OpenAI's flagship conversational AI with advanced reasoning, coding, and multimodal capabilities.</div>
+                                <input type="checkbox" id="show-more-014" class="show-more-checkbox"><div class="tags-container">
+                                    <div class="tags-visible">
+                                        <span class="tag category" onclick="onTagClick('category', 'AI Assistant')">AI Assistant</span>
+                                        <span class="tag department" onclick="onTagClick('department', 'Developers')"><span class="tag-character-icon">🦗</span>Developers</span>
+                                        <label for="show-more-014" class="show-more-label"><span class="show-text">+12 more</span><span class="hide-text">Show less</span></label>
+                                    </div>
+                                    <div class="tags-hidden">
+                                        <span class="tag department" onclick="onTagClick('department', 'Marketers')"><span class="tag-character-icon">🦈</span>Marketers</span>
+                                        <span class="tag department" onclick="onTagClick('department', 'Managers')"><span class="tag-character-icon">🐈</span>Managers</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'back end developer')"><span class="tag-character-icon">🦗</span>back end developer</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'content manager')"><span class="tag-character-icon">🐙</span>content manager</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'analyst')"><span class="tag-character-icon">🐈</span>analyst</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'project manager')"><span class="tag-character-icon">🐅</span>project manager</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'copywriter')"><span class="tag-character-icon">🦈</span>copywriter</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Write Code')">Write Code</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Debug Software')">Debug Software</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Write Content')">Write Content</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Research Topics')">Research Topics</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Analyze Data')">Analyze Data</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Automate Workflows')">Automate Workflows</span>
+                                    </div>
+                                </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-16</div></div>
+                            </div>
+                        </div>
+                        <div class="tool-card" id="tool-015" data-name="Gemini" data-url="https://gemini.google.com/" data-category="AI Assistant" data-description="Google's AI assistant with deep workspace integration and extensive research capabilities." data-key-features='["Google integration","1M token context","Workspace sync","Research tools","Multimodal capabilities"]' data-subscription="Freemium" data-account="admin@rh-s.com" data-last-updated="2025-09-16" data-whats-new="Enhanced Google Workspace integration and improved research capabilities with real-time data access." data-professions='["content manager","analyst","seo manager","project manager"]' data-responsibilities='["Write Content","Research Topics","Analyze Data","Create Presentations","Manage Information"]' data-departments='["Marketers","Managers"]'>
+                            <div class="subscription-corner"><span class="tag subscription-freemium">Freemium</span></div>
+                            <div class="tool-content">
+                                <div class="tool-header"><img src="../logos/Google_Gemini_icon_2025.svg.png" class="tool-logo" alt="Gemini logo"><h3>Gemini</h3></div>
+                                <div class="tool-description">Google's AI assistant with deep workspace integration and extensive research capabilities.</div>
+                                <input type="checkbox" id="show-more-015" class="show-more-checkbox"><div class="tags-container">
+                                    <div class="tags-visible">
+                                        <span class="tag category" onclick="onTagClick('category', 'AI Assistant')">AI Assistant</span>
+                                        <span class="tag department" onclick="onTagClick('department', 'Marketers')"><span class="tag-character-icon">🦈</span>Marketers</span>
+                                        <label for="show-more-015" class="show-more-label"><span class="show-text">+8 more</span><span class="hide-text">Show less</span></label>
+                                    </div>
+                                    <div class="tags-hidden">
+                                        <span class="tag department" onclick="onTagClick('department', 'Managers')"><span class="tag-character-icon">🐈</span>Managers</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'content manager')"><span class="tag-character-icon">🐙</span>content manager</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'analyst')"><span class="tag-character-icon">🐈</span>analyst</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'seo manager')"><span class="tag-character-icon">🦈</span>seo manager</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'project manager')"><span class="tag-character-icon">🐅</span>project manager</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Write Content')">Write Content</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Research Topics')">Research Topics</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Analyze Data')">Analyze Data</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Create Presentations')">Create Presentations</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Manage Information')">Manage Information</span>
+                                    </div>
+                                </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-16</div></div>
+                            </div>
+                        </div>
+                        <div class="tool-card" id="tool-016" data-name="Claude" data-url="https://claude.ai/" data-category="AI Assistant" data-description="Anthropic's AI assistant excelling in coding performance and reasoning with extended thinking." data-key-features='["Advanced reasoning","Extended thinking","Code analysis","Long context","Safety focus"]' data-subscription="Freemium" data-account="admin@rh-s.com" data-last-updated="2025-09-16" data-whats-new="Claude 4 Sonnet released with improved reasoning capabilities and better code understanding." data-professions='["back end developer","analyst","content manager","project manager"]' data-responsibilities='["Write Code","Debug Software","Analyze Data","Research Topics"]' data-departments='["Developers","Managers","Marketers"]'>
+                            <div class="subscription-corner"><span class="tag subscription-freemium">Freemium</span></div>
+                            <div class="tool-content">
+                                <div class="tool-header"><img src="../logos/Claude_AI_symbol.svg.png" class="tool-logo" alt="Claude logo"><h3>Claude</h3></div>
+                                <div class="tool-description">Anthropic's AI assistant excelling in coding performance and reasoning with extended thinking.</div>
+                                <input type="checkbox" id="show-more-016" class="show-more-checkbox"><div class="tags-container">
+                                    <div class="tags-visible">
+                                        <span class="tag category" onclick="onTagClick('category', 'AI Assistant')">AI Assistant</span>
+                                        <span class="tag department" onclick="onTagClick('department', 'Developers')"><span class="tag-character-icon">🦗</span>Developers</span>
+                                        <label for="show-more-016" class="show-more-label"><span class="show-text">+7 more</span><span class="hide-text">Show less</span></label>
+                                    </div>
+                                    <div class="tags-hidden">
+                                        <span class="tag department" onclick="onTagClick('department', 'Managers')"><span class="tag-character-icon">🐈</span>Managers</span>
+                                        <span class="tag department" onclick="onTagClick('department', 'Marketers')"><span class="tag-character-icon">🦈</span>Marketers</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'back end developer')"><span class="tag-character-icon">🦗</span>back end developer</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'analyst')"><span class="tag-character-icon">🐈</span>analyst</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'content manager')"><span class="tag-character-icon">🐙</span>content manager</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'project manager')"><span class="tag-character-icon">🐅</span>project manager</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Write Code')">Write Code</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Debug Software')">Debug Software</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Analyze Data')">Analyze Data</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Research Topics')">Research Topics</span>
+                                    </div>
+                                </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-16</div></div>
+                            </div>
+                        </div>
+                        <div class="tool-card" id="tool-017" data-name="Grok" data-url="https://x.ai/" data-category="AI Assistant" data-description="X's AI assistant with real-time information access and unique personality for social media insights." data-key-features='["Real-time data","X platform integration","Unfiltered responses","Social insights","Current events"]' data-subscription="Paid" data-account="lg@rh-s.com" data-last-updated="2025-09-15" data-whats-new="Enhanced real-time capabilities and improved social media trend analysis." data-professions='["social media manager","content manager","pr manager","influencer manager"]' data-responsibilities='["Write Content","Research Topics","Analyze Data"]' data-departments='["Marketers"]'>
+                            <div class="subscription-corner"><span class="tag subscription-paid">Paid</span></div>
+                            <div class="tool-content">
+                                <div class="tool-header"><img src="../logos/grok.png" class="tool-logo" alt="Grok logo"><h3>Grok</h3></div>
+                                <div class="tool-description">X's AI assistant with real-time information access and unique personality for social media insights.</div>
+                                <input type="checkbox" id="show-more-017" class="show-more-checkbox"><div class="tags-container">
+                                    <div class="tags-visible">
+                                        <span class="tag category" onclick="onTagClick('category', 'AI Assistant')">AI Assistant</span>
+                                        <span class="tag department" onclick="onTagClick('department', 'Marketers')"><span class="tag-character-icon">🦈</span>Marketers</span>
+                                        <label for="show-more-017" class="show-more-label"><span class="show-text">+6 more</span><span class="hide-text">Show less</span></label>
+                                    </div>
+                                    <div class="tags-hidden">
+                                        <span class="tag profession" onclick="onTagClick('profession', 'social media manager')"><span class="tag-character-icon">🐅</span>social media manager</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'content manager')"><span class="tag-character-icon">🐙</span>content manager</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'pr manager')"><span class="tag-character-icon">🦈</span>pr manager</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'influencer manager')"><span class="tag-character-icon">🦈</span>influencer manager</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Write Content')">Write Content</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Research Topics')">Research Topics</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Analyze Data')">Analyze Data</span>
+                                    </div>
+                                </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-15</div></div>
+                            </div>
+                        </div>
+                        <div class="tool-card" id="tool-018" data-name="AI Studio" data-url="https://aistudio.google.com/" data-category="AI Assistant" data-description="Google's experimental AI platform providing free access to latest Gemini models without safety filters." data-key-features='["Latest models","No safety filters","Free access","Model tuning","API access"]' data-subscription="Free" data-account="dev@rh-s.com" data-last-updated="2025-09-16" data-whats-new="Added support for Gemini 2.0 Flash and improved fine-tuning capabilities." data-professions='["back end developer","graphic designer","content manager"]' data-responsibilities='["Write Code","Generate Images","Create Presentations","Design Websites"]' data-departments='["Developers","Designers","Marketers"]'>
+                            <div class="subscription-corner"><span class="tag subscription-free">Free</span></div>
+                            <div class="tool-content">
+                                <div class="tool-header"><img src="../logos/aistudio.png" class="tool-logo" alt="AI Studio logo"><h3>AI Studio</h3></div>
+                                <div class="tool-description">Google's experimental AI platform providing free access to latest Gemini models without safety filters.</div>
+                                <input type="checkbox" id="show-more-018" class="show-more-checkbox"><div class="tags-container">
+                                    <div class="tags-visible">
+                                        <span class="tag category" onclick="onTagClick('category', 'AI Assistant')">AI Assistant</span>
+                                        <span class="tag department" onclick="onTagClick('department', 'Developers')"><span class="tag-character-icon">🦗</span>Developers</span>
+                                        <label for="show-more-018" class="show-more-label"><span class="show-text">+7 more</span><span class="hide-text">Show less</span></label>
+                                    </div>
+                                    <div class="tags-hidden">
+                                        <span class="tag department" onclick="onTagClick('department', 'Designers')"><span class="tag-character-icon">🦉</span>Designers</span>
+                                        <span class="tag department" onclick="onTagClick('department', 'Marketers')"><span class="tag-character-icon">🦈</span>Marketers</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'back end developer')"><span class="tag-character-icon">🦗</span>back end developer</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'graphic designer')"><span class="tag-character-icon">🦜</span>graphic designer</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'content manager')"><span class="tag-character-icon">🐙</span>content manager</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Write Code')">Write Code</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Generate Images')">Generate Images</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Create Presentations')">Create Presentations</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Design Websites')">Design Websites</span>
+                                    </div>
+                                </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-16</div></div>
+                            </div>
+                        </div>
+                        <div class="tool-card" id="tool-019" data-name="NotebookLM" data-url="https://notebooklm.google.com/" data-category="AI Assistant" data-description="Google's research assistant specializing in document analysis with audio overview generation." data-key-features='["Document analysis","Audio overviews","Citation tracking","Research synthesis","Source grounding"]' data-subscription="Free" data-account="admin@rh-s.com" data-last-updated="2025-09-15" data-whats-new="Improved audio generation quality and added support for more document formats." data-professions='["analyst","content manager","project manager","financial manager"]' data-responsibilities='["Research Topics","Analyze Data","Summarize Documents","Manage Information"]' data-departments='["Managers","Marketers"]'>
+                            <div class="subscription-corner"><span class="tag subscription-free">Free</span></div>
+                            <div class="tool-content">
+                                <div class="tool-header"><img src="../logos/notebook.png" class="tool-logo" alt="NotebookLM logo"><h3>NotebookLM</h3></div>
+                                <div class="tool-description">Google's research assistant specializing in document analysis with audio overview generation.</div>
+                                <input type="checkbox" id="show-more-019" class="show-more-checkbox"><div class="tags-container">
+                                    <div class="tags-visible">
+                                        <span class="tag category" onclick="onTagClick('category', 'AI Assistant')">AI Assistant</span>
+                                        <span class="tag department" onclick="onTagClick('department', 'Managers')"><span class="tag-character-icon">🐈</span>Managers</span>
+                                        <label for="show-more-019" class="show-more-label"><span class="show-text">+7 more</span><span class="hide-text">Show less</span></label>
+                                    </div>
+                                    <div class="tags-hidden">
+                                        <span class="tag department" onclick="onTagClick('department', 'Marketers')"><span class="tag-character-icon">🦈</span>Marketers</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'analyst')"><span class="tag-character-icon">🐈</span>analyst</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'content manager')"><span class="tag-character-icon">🐙</span>content manager</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'project manager')"><span class="tag-character-icon">🐅</span>project manager</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'financial manager')"><span class="tag-character-icon">🦁</span>financial manager</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Research Topics')">Research Topics</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Analyze Data')">Analyze Data</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Summarize Documents')">Summarize Documents</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Manage Information')">Manage Information</span>
+                                    </div>
+                                </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-15</div></div>
+                            </div>
+                        </div>
+                        <div class="tool-card" id="tool-020" data-name="Notion" data-url="https://www.notion.so/" data-category="Tools" data-description="All-in-one workspace with AI-powered features for content creation and organization." data-key-features='["AI writing assistant","Database management","Template library","Collaboration tools","Custom workflows"]' data-subscription="Freemium" data-account="admin@rh-s.com" data-last-updated="2025-09-16" data-whats-new="Enhanced AI features with better content generation and improved database functionality." data-professions='["project manager","content manager","analyst","hr manager"]' data-responsibilities='["Create Presentations","Write Content","Manage Information","Analyze Data"]' data-departments='["Managers","Marketers"]'>
+                            <div class="subscription-corner"><span class="tag subscription-freemium">Freemium</span></div>
+                            <div class="tool-content">
+                                <div class="tool-header"><img src="../logos/Notion-logo.svg.png" class="tool-logo" alt="Notion logo"><h3>Notion</h3></div>
+                                <div class="tool-description">All-in-one workspace with AI-powered features for content creation and organization.</div>
+                                <input type="checkbox" id="show-more-020" class="show-more-checkbox"><div class="tags-container">
+                                    <div class="tags-visible">
+                                        <span class="tag category" onclick="onTagClick('category', 'Tools')">Tools</span>
+                                        <span class="tag department" onclick="onTagClick('department', 'Managers')"><span class="tag-character-icon">🐈</span>Managers</span>
+                                        <label for="show-more-020" class="show-more-label"><span class="show-text">+7 more</span><span class="hide-text">Show less</span></label>
+                                    </div>
+                                    <div class="tags-hidden">
+                                        <span class="tag department" onclick="onTagClick('department', 'Marketers')"><span class="tag-character-icon">🦈</span>Marketers</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'project manager')"><span class="tag-character-icon">🐅</span>project manager</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'content manager')"><span class="tag-character-icon">🐙</span>content manager</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'analyst')"><span class="tag-character-icon">🐈</span>analyst</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'hr manager')"><span class="tag-character-icon">🐈</span>hr manager</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Create Presentations')">Create Presentations</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Write Content')">Write Content</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Manage Information')">Manage Information</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Analyze Data')">Analyze Data</span>
+                                    </div>
+                                </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-16</div></div>
+                            </div>
+                        </div>
+                        <div class="tool-card" id="tool-021" data-name="DropBox" data-url="https://www.dropbox.com/" data-category="Tools" data-description="Cloud storage platform with advanced collaboration and AI-powered search capabilities." data-key-features='["Cloud storage","File synchronization","AI search","Collaboration tools","Version control"]' data-subscription="Freemium" data-account="admin@rh-s.com" data-last-updated="2025-09-16" data-whats-new="Enhanced AI-powered search and improved collaboration features with smart notifications." data-professions='["content manager","project manager","graphic designer","video editor"]' data-responsibilities='["Source Assets","Manage Information","Host Repositories"]' data-departments='["Marketers","Managers","Designers","Videographers"]'>
+                            <div class="subscription-corner"><span class="tag subscription-freemium">Freemium</span></div>
+                            <div class="tool-content">
+                                <div class="tool-header"><img src="../logos/Dropbox_Icon.svg.png" class="tool-logo" alt="DropBox logo"><h3>DropBox</h3></div>
+                                <div class="tool-description">Cloud storage platform with advanced collaboration and AI-powered search capabilities.</div>
+                                <input type="checkbox" id="show-more-021" class="show-more-checkbox"><div class="tags-container">
+                                    <div class="tags-visible">
+                                        <span class="tag category" onclick="onTagClick('category', 'Tools')">Tools</span>
+                                        <span class="tag department" onclick="onTagClick('department', 'Marketers')"><span class="tag-character-icon">🦈</span>Marketers</span>
+                                        <label for="show-more-021" class="show-more-label"><span class="show-text">+8 more</span><span class="hide-text">Show less</span></label>
+                                    </div>
+                                    <div class="tags-hidden">
+                                        <span class="tag department" onclick="onTagClick('department', 'Managers')"><span class="tag-character-icon">🐈</span>Managers</span>
+                                        <span class="tag department" onclick="onTagClick('department', 'Designers')"><span class="tag-character-icon">🦉</span>Designers</span>
+                                        <span class="tag department" onclick="onTagClick('department', 'Videographers')"><span class="tag-character-icon">🦎</span>Videographers</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'content manager')"><span class="tag-character-icon">🐙</span>content manager</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'project manager')"><span class="tag-character-icon">🐅</span>project manager</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'graphic designer')"><span class="tag-character-icon">🦜</span>graphic designer</span>
+                                        <span class="tag profession" onclick="onTagClick('profession', 'video editor')"><span class="tag-character-icon">🦎</span>video editor</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Source Assets')">Source Assets</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Manage Information')">Manage Information</span>
+                                        <span class="tag responsibility" onclick="onTagClick('responsibility', 'Host Repositories')">Host Repositories</span>
+                                    </div>
+                                </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-16</div></div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+
+        <div id="accounts-view" class="tab-content accounts-view">
+             <div class="account-card" style="animation-delay: 0ms;"><h3>niko@rh-s.com</h3><p>Tools: 2</p><div class="account-tools"><span class="account-tool-tag" data-tool-name="MidJourney">MidJourney</span><span class="account-tool-tag" data-tool-name="Envato Elements">Envato Elements</span></div></div>
+            <div class="account-card" style="animation-delay: 60ms;"><h3>admin@rh-s.com</h3><p>Tools: 5</p><div class="account-tools"><span class="account-tool-tag" data-tool-name="GPT">GPT</span><span class="account-tool-tag" data-tool-name="Gemini">Gemini</span><span class="account-tool-tag" data-tool-name="Claude">Claude</span><span class="account-tool-tag" data-tool-name="NotebookLM">NotebookLM</span><span class="account-tool-tag" data-tool-name="Notion">Notion</span></div></div>
+            <div class="account-card" style="animation-delay: 120ms;"><h3>dev@rh-s.com</h3><p>Tools: 8</p><div class="account-tools"><span class="account-tool-tag" data-tool-name="n8n">n8n</span><span class="account-tool-tag" data-tool-name="Replit">Replit</span><span class="account-tool-tag" data-tool-name="Lovable">Lovable</span><span class="account-tool-tag" data-tool-name="Bolt.new">Bolt.new</span><span class="account-tool-tag" data-tool-name="V0">V0</span><span class="account-tool-tag" data-tool-name="DeepSite">DeepSite</span><span class="account-tool-tag" data-tool-name="Cursor">Cursor</span><span class="account-tool-tag" data-tool-name="AI Studio">AI Studio</span></div></div>
+            <div class="account-card" style="animation-delay: 180ms;"><h3>lg@rh-s.com</h3><p>Tools: 2</p><div class="account-tools"><span class="account-tool-tag" data-tool-name="Genspark">Genspark</span><span class="account-tool-tag" data-tool-name="Grok">Grok</span></div></div>
+            <div class="account-card" style="animation-delay: 240ms;"><h3>sales@rh-s.com</h3><p>Tools: 1</p><div class="account-tools"><span class="account-tool-tag" data-tool-name="Gamma">Gamma</span></div></div>
+        </div>
+    </div>
+
+    <div id="toolModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const departmentsData = {"Designers":["graphic designer","illustrator","ui ux designer","web designer","wordpress designer","motion designer"],"Developers":["back end developer","front end developer","full stack developer","mobile developer","qa","system administrator"],"Marketers":["content manager","copywriter","social media manager","seo manager","pr manager","influencer manager"],"Managers":["project manager","product manager","financial manager","analyst","hr manager","sales manager"],"Videographers":["video editor","motion designer"]};
+            const toolCards = document.querySelectorAll('.tool-card');
+
+            const themeToggle = document.getElementById('theme-toggle');
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            if (savedTheme === 'dark') {
+                themeToggle.querySelector('.theme-icon').textContent = '☀️';
+                themeToggle.querySelector('span:last-child').textContent = 'Light';
+            }
+            themeToggle.addEventListener('click', () => {
+                const newTheme = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                themeToggle.querySelector('.theme-icon').textContent = newTheme === 'light' ? '🌙' : '☀️';
+                themeToggle.querySelector('span:last-child').textContent = newTheme === 'light' ? 'Dark' : 'Light';
+            });
+
+            document.querySelectorAll('.tab-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.querySelectorAll('.tab-link').forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                    document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+                    document.getElementById(`${link.dataset.tab}-view`).style.display = 'block';
+                });
+            });
+
+            const modal = document.getElementById('toolModal');
+            modal.querySelector('.close').addEventListener('click', () => modal.style.display = 'none');
+            window.addEventListener('click', (event) => { if (event.target === modal) modal.style.display = 'none'; });
+            
+            window.openToolModal = function(card) {
+                const data = card.dataset;
+                modal.querySelector('#modal-body').innerHTML = `
+                    <h2>${data.name}</h2>
+                    <div class="modal-section"><h3>Description</h3><p>${data.description}</p></div>
+                    <div class="modal-section"><h3>Key Features</h3><div class="feature-list">${JSON.parse(data.keyFeatures).map(f => `<span class="feature-tag">${f}</span>`).join('')}</div></div>
+                    <div class="modal-section"><h3>Access Information</h3><p><strong>Account:</strong> ${data.account}</p><p><strong>Subscription:</strong> ${data.subscription}</p></div>
+                    <div class="modal-section"><h3>Relevant Professions</h3><div class="feature-list">${JSON.parse(data.professions).map(p => `<span class="feature-tag">${p}</span>`).join('')}</div></div>
+                    <div class="modal-section"><h3>Update Information</h3><p><strong>Last Updated:</strong> ${data.lastUpdated}</p>${data.whatsNew ? `<p style="background: var(--warning-bg); border: 1px solid var(--warning-border); border-radius: 5px; padding: 1rem; margin-top: 1rem;"><strong>What's New:</strong> ${data.whatsNew}</p>` : ''}</div>
+                    <a href="${data.url}" target="_blank" class="visit-button">Visit ${data.name}</a>
+                    <button class="export-button" onclick="bookmarkAI('${data.name}', '${data.url}')">Bookmark</button>`;
+                modal.style.display = 'block';
+            }
+
+            toolCards.forEach(card => {
+                card.addEventListener('click', (e) => { 
+                    if (!e.target.closest('.tag, .show-more-label')) openToolModal(card) 
+                });
+            });
+
+            document.querySelectorAll('.account-tool-tag').forEach(tag => {
+                tag.addEventListener('click', () => {
+                    const card = document.querySelector(`.tool-card[data-name="${tag.dataset.toolName}"]`);
+                    if (card) {
+                        document.querySelector('.tab-link[data-tab="catalog"]').click();
+                        setTimeout(() => openToolModal(card), 100);
+                    }
+                });
+            });
+            
+            const sidebar = document.getElementById('sidebar');
+            const contentArea = document.getElementById('content-area');
+            const filterToggle = document.getElementById('filter-toggle');
+            filterToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('hidden');
+                contentArea.classList.toggle('expanded');
+                filterToggle.classList.toggle('open');
+            });
+
+            const filters = {
+                category: document.getElementById('category-filter'),
+                department: document.getElementById('department-filter'),
+                profession: document.getElementById('profession-filter'),
+                responsibility: document.getElementById('responsibility-filter'),
+                subscription: document.getElementById('subscription-filter')
+            };
+            const activeFiltersContainer = document.getElementById('active-filters');
+            const activeFiltersList = document.getElementById('active-filter-list');
+            const searchBar = document.getElementById('search-bar'); // ✨ NEW
+
+            const allProfessions = new Set();
+            const allResponsibilities = new Set();
+            toolCards.forEach(card => {
+                JSON.parse(card.dataset.professions).forEach(p => allProfessions.add(p));
+                JSON.parse(card.dataset.responsibilities).forEach(r => allResponsibilities.add(r));
+            });
+            [...allProfessions].sort().forEach(p => filters.profession.innerHTML += `<option value="${p}">${p}</option>`);
+            [...allResponsibilities].sort().forEach(r => filters.responsibility.innerHTML += `<option value="${r}">${r}</option>`);
+
+            function applyFilters() {
+                const active = {};
+                Object.keys(filters).forEach(key => { if (filters[key].value) active[key] = filters[key].value; });
+                const searchTerm = searchBar.value.toLowerCase(); // ✨ NEW
+
+                toolCards.forEach(card => {
+                    let isVisible = true;
+                    // Dropdown filters
+                    if (active.category && card.dataset.category !== active.category) isVisible = false;
+                    if (active.subscription && card.dataset.subscription !== active.subscription) isVisible = false;
+                    if (active.department && !JSON.parse(card.dataset.departments).includes(active.department)) isVisible = false;
+                    if (active.profession && !JSON.parse(card.dataset.professions).includes(active.profession)) isVisible = false;
+                    if (active.responsibility && !JSON.parse(card.dataset.responsibilities).includes(active.responsibility)) isVisible = false;
+
+                    // ✨ NEW Search filter logic
+                    if (isVisible && searchTerm) {
+                        const toolName = card.dataset.name.toLowerCase();
+                        const toolDesc = card.dataset.description.toLowerCase();
+                        if (!(toolName.includes(searchTerm) || toolDesc.includes(searchTerm))) {
+                            isVisible = false;
+                        }
+                    }
+
+                    card.style.display = isVisible ? 'block' : 'none';
+                });
+                
+                activeFiltersList.innerHTML = '';
+                if (Object.keys(active).length > 0) {
+                    activeFiltersContainer.classList.remove('hidden');
+                    Object.entries(active).forEach(([type, value]) => {
+                        activeFiltersList.innerHTML += `<div class="active-filter-tag">${type}: ${value} <span class="remove" data-type="${type}">&times;</span></div>`;
+                    });
+                } else {
+                    activeFiltersContainer.classList.add('hidden');
+                }
+            }
+            
+            // Add event listeners
+            Object.values(filters).forEach(select => select.addEventListener('change', applyFilters));
+            searchBar.addEventListener('input', applyFilters); // ✨ NEW
+            
+            activeFiltersList.addEventListener('click', (e) => {
+                if (e.target.classList.contains('remove')) {
+                    filters[e.target.dataset.type].value = '';
+                    applyFilters();
+                }
+            });
+
+            document.querySelector('.clear-filters').addEventListener('click', () => {
+                Object.values(filters).forEach(select => select.value = '');
+                searchBar.value = ''; // ✨ NEW
+                applyFilters();
+            });
+
+            // ✨ NEW Function to handle tag clicks
+            window.onTagClick = function(type, value) {
+                const filterDropdown = document.getElementById(`${type}-filter`);
+                if (filterDropdown) {
+                    filterDropdown.value = value;
+                    filterDropdown.dispatchEvent(new Event('change'));
+                }
+            }
+
+            // ✨ NEW Function to handle bookmarking
+            window.bookmarkAI = function(name, url) {
+                try {
+                    const win = window.open(url, '_blank');
+                    if (!win) {
+                        alert('Popup blocked. Please allow popups and press Cmd/Ctrl + D to bookmark.');
+                        return;
+                    }
+                    setTimeout(() => {
+                        win.focus();
+                        alert('Press Cmd/Ctrl + D to add a bookmark for ' + name + '.');
+                    }, 300);
+                } catch (e) {
+                    alert('Please press Cmd/Ctrl + D to add a bookmark for ' + name + '.');
+                }
+            }
+
+            document.getElementById('export-bookmarks').addEventListener('click', () => {
+                let bookmarkHTML = `<!DOCTYPE NETSCAPE-Bookmark-file-1><META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"><TITLE>Bookmarks</TITLE><H1>Bookmarks Menu</H1><DL><p><DT><H3>RH-S AI Toolbar</H3><DL><p>`;
+                
+                Object.keys(departmentsData).forEach(department => {
+                    bookmarkHTML += `<DT><H3>${department}</H3><DL><p>`;
+                    departmentsData[department].forEach(profession => {
+                        bookmarkHTML += `<DT><H3>${profession}</H3><DL><p>`;
+                        toolCards.forEach(card => {
+                            if (card.style.display !== 'none' && JSON.parse(card.dataset.professions).includes(profession)) {
+                                bookmarkHTML += `<DT><A HREF="${card.dataset.url}">${card.dataset.name}</A>`;
+                            }
+                        });
+                        bookmarkHTML += `</DL><p>`;
+                    });
+                    bookmarkHTML += `</DL><p>`;
+                });
+
+                bookmarkHTML += `</DL><p></DL><p>`;
+                const blob = new Blob([bookmarkHTML], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'RHS-AI-Toolbar-Bookmarks.html';
+                a.click();
+                URL.revokeObjectURL(url);
+                a.remove();
+                setTimeout(() => alert('Bookmarks for visible tools have been exported!'), 100);
+            });
+        });
+    </script>
+</body>
+</html>
