@@ -71,18 +71,19 @@
             --danger-text: #f87171;
             --danger-border: #7f1d1d;
 
-            /* --- Theme-aware logo colors for Dark Mode --- */
+            /* --- ✨ MODIFIED --- Revert logos to their original white color in Dark Mode */
             .tool-card[data-name="GPT"] .tool-logo,
             .tool-card[data-name="gamma"] .tool-logo,
             .tool-card[data-name="midjourney"] .tool-logo,
             .tool-card[data-name="Bolt.new"] .tool-logo,
             .tool-card[data-name="V0"] .tool-logo,
             .tool-card[data-name="Grok"] .tool-logo,
-            .tool-card[data-name="AI Studio"] .tool-logo {
+            .tool-card[data-name="AI Studio"] .tool-logo,
+            .tool-card[data-name="envato"] .tool-logo {
                 filter: none; 
             }
             .tool-card[data-name="GitHub"] .tool-logo {
-                filter: invert(100%);
+                filter: invert(100%); /* Invert black GitHub logo to white */
             }
         }
         
@@ -254,7 +255,6 @@
             margin-left: 1rem;
         }
         
-        /* --- ✨ NEW --- Search Bar Styles */
         .search-container {
             margin-bottom: 1.5rem;
             position: relative;
@@ -474,7 +474,8 @@
         .tool-card[data-name="Bolt.new"] .tool-logo,
         .tool-card[data-name="V0"] .tool-logo,
         .tool-card[data-name="Grok"] .tool-logo,
-        .tool-card[data-name="AI Studio"] .tool-logo {
+        .tool-card[data-name="AI Studio"] .tool-logo,
+        .tool-card[data-name="envato"] .tool-logo {
             filter: invert(100%);
         }
 
@@ -767,7 +768,7 @@
                         <div class="tool-card" id="tool-004" data-name="envato" data-url="https://elements.envato.com/" data-category="Design" data-description="All-in-one creative subscription with 20+ million graphics, templates, videos, and audio files." data-key-features='["20M+ creative assets","Commercial license","Template library","Video assets","Audio library"]' data-subscription="Paid" data-account="niko@rh-s.com" data-last-updated="2025-09-16" data-whats-new="Added new AI-generated templates and expanded video library with 4K content." data-professions='["graphic designer","web designer","video editor","content manager","motion designer"]' data-responsibilities='["Source Assets","Design Websites","Create Presentations"]' data-departments='["Designers","Videographers","Marketers"]'>
                             <div class="subscription-corner"><span class="tag subscription-paid">Paid</span></div>
                             <div class="tool-content">
-                               <div class="tool-header"><img src="logos/Envato-removebg-preview.png" class="tool-logo" alt="Envato Elements logo"><h3>Envato Elements</h3></div>
+                               <div class="tool-header"><img src="logos/envato.jpg" class="tool-logo" alt="Envato Elements logo"><h3>Envato Elements</h3></div>
                                 <div class="tool-description">All-in-one creative subscription with 20+ million graphics, templates, videos, and audio files.</div>
                                 <input type="checkbox" id="show-more-004" class="show-more-checkbox"><div class="tags-container">
                                     <div class="tags-visible">
@@ -1305,7 +1306,7 @@
             };
             const activeFiltersContainer = document.getElementById('active-filters');
             const activeFiltersList = document.getElementById('active-filter-list');
-            const searchBar = document.getElementById('search-bar'); // ✨ NEW
+            const searchBar = document.getElementById('search-bar');
 
             const allProfessions = new Set();
             const allResponsibilities = new Set();
@@ -1319,7 +1320,7 @@
             function applyFilters() {
                 const active = {};
                 Object.keys(filters).forEach(key => { if (filters[key].value) active[key] = filters[key].value; });
-                const searchTerm = searchBar.value.toLowerCase(); // ✨ NEW
+                const searchTerm = searchBar.value.toLowerCase();
 
                 toolCards.forEach(card => {
                     let isVisible = true;
@@ -1330,7 +1331,7 @@
                     if (active.profession && !JSON.parse(card.dataset.professions).includes(active.profession)) isVisible = false;
                     if (active.responsibility && !JSON.parse(card.dataset.responsibilities).includes(active.responsibility)) isVisible = false;
 
-                    // ✨ NEW Search filter logic
+                    // Search filter logic
                     if (isVisible && searchTerm) {
                         const toolName = card.dataset.name.toLowerCase();
                         const toolDesc = card.dataset.description.toLowerCase();
@@ -1353,9 +1354,8 @@
                 }
             }
             
-            // Add event listeners
             Object.values(filters).forEach(select => select.addEventListener('change', applyFilters));
-            searchBar.addEventListener('input', applyFilters); // ✨ NEW
+            searchBar.addEventListener('input', applyFilters);
             
             activeFiltersList.addEventListener('click', (e) => {
                 if (e.target.classList.contains('remove')) {
@@ -1366,11 +1366,10 @@
 
             document.querySelector('.clear-filters').addEventListener('click', () => {
                 Object.values(filters).forEach(select => select.value = '');
-                searchBar.value = ''; // ✨ NEW
+                searchBar.value = '';
                 applyFilters();
             });
 
-            // ✨ NEW Function to handle tag clicks
             window.onTagClick = function(type, value) {
                 const filterDropdown = document.getElementById(`${type}-filter`);
                 if (filterDropdown) {
@@ -1379,7 +1378,6 @@
                 }
             }
 
-            // ✨ NEW Function to handle bookmarking
             window.bookmarkAI = function(name, url) {
                 try {
                     const win = window.open(url, '_blank');
@@ -1428,5 +1426,6 @@
     </script>
 </body>
 </html>
+
 
 
