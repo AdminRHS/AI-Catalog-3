@@ -88,8 +88,11 @@
             
             .info-highlight {
                 background-color: rgba(0, 150, 225, 0.2);
-                color: #2FBAFF;
+                color: #83CBFF;
                 border-color: rgba(47, 186, 255, 0.4);
+            }
+            .modal-section h3 {
+                color: #83CBFF;
             }
         }
         
@@ -262,8 +265,8 @@
         .close:hover { color: var(--text-primary); }
         .modal h2 { color: var(--text-primary); margin-bottom: 1rem; font-size: 2rem; text-align: center; }
         
-        .modal-section { margin-bottom: 1.5rem; padding: 1.5rem; border: 2px solid var(--accent-primary); border-radius: 8px; }
-        .modal-section h3 { color: var(--accent-primary); font-size: 1.3rem; margin-bottom: 1rem; }
+        .modal-section { margin-bottom: 1.5rem; padding: 1.5rem; border: none; border-bottom: 2px solid var(--border-color); }
+        .modal-section h3 { color: #2577D6; font-size: 1.3rem; margin-bottom: 1rem; }
         
         .feature-list { display: flex; flex-wrap: wrap; gap: 0.6rem 0.9rem; }
         .feature-tag { background: var(--bg-primary); color: var(--text-primary); padding: 0.25rem 0.75rem; border-radius: 15px; font-size: 0.9rem; border: 1px solid var(--border-color); }
@@ -288,7 +291,7 @@
         }
         .info-highlight {
             background-color: rgba(0, 150, 225, 0.15);
-            color: #007ab8;
+            color: #2577D6;
             padding: 0.25rem 0.75rem;
             border-radius: 20px;
             font-weight: 600;
@@ -399,7 +402,8 @@
             <div class="main-content">
                 <main>
                     <div class="tools-grid" id="tools-grid">
-                        <div class="tool-card" id="tool-001" data-name="n8n" data-url="https://n8n.io/" data-category="Automation" data-description="Visual workflow automation platform with 400+ integrations for connecting apps and services." data-key-features='["Visual workflow builder","400+ integrations","Self-hostable","Custom functions","API integration"]' data-subscription="Freemium" data-account="dev@rh-s.com" data-last-updated="2025-09-16" data-whats-new="Added new AI nodes and improved performance for large workflows. Community edition remains free for self-hosting." data-professions='["back end developer","system administrator","project manager"]' data-responsibilities='["Automate Workflows","Write Code","Manage Information"]' data-departments='["Developers","Managers"]'>
+                        
+                        <div class="tool-card" id="tool-001" data-name="n8n" data-modal-image="Gamma_course.jpg" data-url="https://n8n.io/" data-category="Automation" data-description="Visual workflow automation platform with 400+ integrations for connecting apps and services." data-key-features='["Visual workflow builder","400+ integrations","Self-hostable","Custom functions","API integration"]' data-subscription="Freemium" data-account="dev@rh-s.com" data-last-updated="2025-09-16" data-whats-new="Added new AI nodes and improved performance for large workflows. Community edition remains free for self-hosting." data-professions='["back end developer","system administrator","project manager"]' data-responsibilities='["Automate Workflows","Write Code","Manage Information"]' data-departments='["Developers","Managers"]'>
                             <div class="subscription-corner"><span class="tag subscription-freemium">Freemium</span></div>
                             <div class="tool-content">
                                 <div class="tool-header"><img src="logos/n8n-color.png" class="tool-logo" alt="n8n logo"><h3>n8n</h3></div>
@@ -422,7 +426,7 @@
                                 </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-16</div></div>
                             </div>
                         </div>
-                        <div class="tool-card" id="tool-002" data-name="gamma" data-url="https://gamma.app/" data-category="Design" data-description="AI-powered presentation and website creation tool that generates content from text prompts." data-key-features='["AI presentation generation","Text-to-presentation","Multi-format export","Real-time collaboration","Template library"]' data-subscription="Freemium" data-account="sales@rh-s.com" data-last-updated="2025-09-15" data-whats-new="Enhanced AI models for better content generation and added new export formats including video presentations." data-professions='["project manager","product manager","content manager","sales manager"]' data-responsibilities='["Create Presentations","Design Websites","Write Content"]' data-departments='["Managers","Marketers"]'>
+                        <div class="tool-card" id="tool-002" data-name="gamma" data-modal-image="Gamma_course.jpg" data-url="https://gamma.app/" data-category="Design" data-description="AI-powered presentation and website creation tool that generates content from text prompts." data-key-features='["AI presentation generation","Text-to-presentation","Multi-format export","Real-time collaboration","Template library"]' data-subscription="Freemium" data-account="sales@rh-s.com" data-last-updated="2025-09-15" data-whats-new="Enhanced AI models for better content generation and added new export formats including video presentations." data-professions='["project manager","product manager","content manager","sales manager"]' data-responsibilities='["Create Presentations","Design Websites","Write Content"]' data-departments='["Managers","Marketers"]'>
                             <div class="subscription-corner"><span class="tag subscription-freemium">Freemium</span></div>
                             <div class="tool-content">
                                 <div class="tool-header"><img src="logos/gammai-removebg-preview.png" class="tool-logo" alt="Gamma logo"><h3>Gamma</h3></div>
@@ -446,7 +450,7 @@
                                 </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-15</div></div>
                             </div>
                         </div>
-                        <div class="tool-card" id="tool-003" data-name="midjourney" data-url="https://www.midjourney.com/" data-category="Design" data-description="Leading AI image generation platform for creating artistic and photorealistic images from text prompts." data-key-features='["Photorealistic rendering","Artistic styles","Commercial usage rights","Community gallery","Style references"]' data-subscription="Paid" data-account="niko@rh-s.com" data-last-updated="2025-09-14" data-whats-new="V6.1 model released with improved hand rendering and better text generation within images." data-professions='["graphic designer","illustrator","content manager","social media manager"]' data-responsibilities='["Generate Images","Source Assets"]' data-departments='["Designers","Marketers"]'>
+                        <div class="tool-card" id="tool-003" data-name="midjourney" data-modal-image="Gamma_course.jpg" data-url="https://www.midjourney.com/" data-category="Design" data-description="Leading AI image generation platform for creating artistic and photorealistic images from text prompts." data-key-features='["Photorealistic rendering","Artistic styles","Commercial usage rights","Community gallery","Style references"]' data-subscription="Paid" data-account="niko@rh-s.com" data-last-updated="2025-09-14" data-whats-new="V6.1 model released with improved hand rendering and better text generation within images." data-professions='["graphic designer","illustrator","content manager","social media manager"]' data-responsibilities='["Generate Images","Source Assets"]' data-departments='["Designers","Marketers"]'>
                             <div class="subscription-corner"><span class="tag subscription-paid">Paid</span></div>
                             <div class="tool-content">
                                 <div class="tool-header"><img src="logos/midjourney.png" class="tool-logo" alt="MidJourney logo"><h3>MidJourney</h3></div>
@@ -469,7 +473,7 @@
                                 </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-14</div></div>
                             </div>
                         </div>
-                        <div class="tool-card" id="tool-004" data-name="envato" data-url="https://elements.envato.com/" data-category="Design" data-description="All-in-one creative subscription with 20+ million graphics, templates, videos, and audio files." data-key-features='["20M+ creative assets","Commercial license","Template library","Video assets","Audio library"]' data-subscription="Paid" data-account="niko@rh-s.com" data-last-updated="2025-09-16" data-whats-new="Added new AI-generated templates and expanded video library with 4K content." data-professions='["graphic designer","web designer","video editor","content manager","motion designer"]' data-responsibilities='["Source Assets","Design Websites","Create Presentations"]' data-departments='["Designers","Videographers","Marketers"]'>
+                        <div class="tool-card" id="tool-004" data-name="envato" data-modal-image="Gamma_course.jpg" data-url="https://elements.envato.com/" data-category="Design" data-description="All-in-one creative subscription with 20+ million graphics, templates, videos, and audio files." data-key-features='["20M+ creative assets","Commercial license","Template library","Video assets","Audio library"]' data-subscription="Paid" data-account="niko@rh-s.com" data-last-updated="2025-09-16" data-whats-new="Added new AI-generated templates and expanded video library with 4K content." data-professions='["graphic designer","web designer","video editor","content manager","motion designer"]' data-responsibilities='["Source Assets","Design Websites","Create Presentations"]' data-departments='["Designers","Videographers","Marketers"]'>
                             <div class="subscription-corner"><span class="tag subscription-paid">Paid</span></div>
                             <div class="tool-content">
                                <div class="tool-header"><img src="logos/Envato-removebg-preview.png" class="tool-logo" alt="Envato Elements logo"><h3>Envato Elements</h3></div>
@@ -495,7 +499,7 @@
                                 </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-16</div></div>
                             </div>
                         </div>
-                        <div class="tool-card" id="tool-005" data-name="replit" data-url="https://replit.com/" data-category="Web Design" data-description="Browser-based IDE with AI agents that build full-stack applications from natural language." data-key-features='["AI-powered development","Real-time collaboration","Instant deployment","Multiple frameworks","Cloud hosting"]' data-subscription="Freemium" data-account="dev@rh-s.com" data-last-updated="2025-09-16" data-whats-new="Launched Replit Agent 2.0 with improved code generation and better framework support." data-professions='["full stack developer","front end developer","back end developer"]' data-responsibilities='["Write Code","Debug Software","Deploy Applications","Design Websites"]' data-departments='["Developers"]'>
+                        <div class="tool-card" id="tool-005" data-name="replit" data-modal-image="Gamma_course.jpg" data-url="https://replit.com/" data-category="Web Design" data-description="Browser-based IDE with AI agents that build full-stack applications from natural language." data-key-features='["AI-powered development","Real-time collaboration","Instant deployment","Multiple frameworks","Cloud hosting"]' data-subscription="Freemium" data-account="dev@rh-s.com" data-last-updated="2025-09-16" data-whats-new="Launched Replit Agent 2.0 with improved code generation and better framework support." data-professions='["full stack developer","front end developer","back end developer"]' data-responsibilities='["Write Code","Debug Software","Deploy Applications","Design Websites"]' data-departments='["Developers"]'>
                             <div class="subscription-corner"><span class="tag subscription-freemium">Freemium</span></div>
                             <div class="tool-content">
                                 <div class="tool-header"><img src="https://www.google.com/s2/favicons?sz=64&domain=replit.com" class="tool-logo" alt="Replit logo"><h3>Replit</h3></div>
@@ -518,7 +522,7 @@
                                 </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-16</div></div>
                             </div>
                         </div>
-                        <div class="tool-card" id="tool-006" data-name="lovable" data-url="https://lovable.dev/" data-category="Web Design" data-description="AI-powered full-stack web application builder with GitHub integration and real-time rendering." data-key-features='["Full-stack development","GitHub sync","Real-time rendering","Component library","Deployment automation"]' data-subscription="Freemium" data-account="dev@rh-s.com" data-last-updated="2025-09-15" data-whats-new="Added support for serverless functions and improved React component generation." data-professions='["full stack developer","web designer"]' data-responsibilities='["Write Code","Deploy Applications","Design Websites"]' data-departments='["Developers","Designers"]'>
+                        <div class="tool-card" id="tool-006" data-name="lovable" data-modal-image="Gamma_course.jpg" data-url="https://lovable.dev/" data-category="Web Design" data-description="AI-powered full-stack web application builder with GitHub integration and real-time rendering." data-key-features='["Full-stack development","GitHub sync","Real-time rendering","Component library","Deployment automation"]' data-subscription="Freemium" data-account="dev@rh-s.com" data-last-updated="2025-09-15" data-whats-new="Added support for serverless functions and improved React component generation." data-professions='["full stack developer","web designer"]' data-responsibilities='["Write Code","Deploy Applications","Design Websites"]' data-departments='["Developers","Designers"]'>
                             <div class="subscription-corner"><span class="tag subscription-freemium">Freemium</span></div>
                             <div class="tool-content">
                                 <div class="tool-header"><img src="https://www.google.com/s2/favicons?sz=64&domain=lovable.dev" class="tool-logo" alt="Lovable logo"><h3>Lovable</h3></div>
@@ -540,7 +544,7 @@
                                 </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-15</div></div>
                             </div>
                         </div>
-                        <div class="tool-card" id="tool-007" data-name="Bolt.new" data-url="https://bolt.new/" data-category="Web Design" data-description="AI web development platform for building full-stack applications with WebContainers technology." data-key-features='["WebContainers technology","Multiple frameworks","Instant preview","Code export","AI assistance"]' data-subscription="Freemium" data-account="dev@rh-s.com" data-last-updated="2025-09-14" data-whats-new="Updated pricing model and enhanced AI capabilities with GPT-4 Turbo integration." data-professions='["full stack developer","front end developer"]' data-responsibilities='["Write Code","Debug Software","Deploy Applications"]' data-departments='["Developers"]'>
+                        <div class="tool-card" id="tool-007" data-name="Bolt.new" data-modal-image="Gamma_course.jpg" data-url="https://bolt.new/" data-category="Web Design" data-description="AI web development platform for building full-stack applications with WebContainers technology." data-key-features='["WebContainers technology","Multiple frameworks","Instant preview","Code export","AI assistance"]' data-subscription="Freemium" data-account="dev@rh-s.com" data-last-updated="2025-09-14" data-whats-new="Updated pricing model and enhanced AI capabilities with GPT-4 Turbo integration." data-professions='["full stack developer","front end developer"]' data-responsibilities='["Write Code","Debug Software","Deploy Applications"]' data-departments='["Developers"]'>
                             <div class="subscription-corner"><span class="tag subscription-freemium">Freemium</span></div>
                             <div class="tool-content">
                                 <div class="tool-header"><img src="logos/bolt5-removebg-preview.png" class="tool-logo" alt="Bolt.new logo"><h3>Bolt.new</h3></div>
@@ -561,7 +565,7 @@
                                 </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-14</div></div>
                             </div>
                         </div>
-                        <div class="tool-card" id="tool-008" data-name="V0" data-url="https://v0.dev/" data-category="Web Design" data-description="Vercel's AI-powered UI generator that creates React/Next.js components from natural language." data-key-features='["React component generation","Next.js integration","Shadcn/ui components","Tailwind CSS","Production-ready code"]' data-subscription="Freemium" data-account="dev@rh-s.com" data-last-updated="2025-09-16" data-whats-new="Enhanced component library and improved code quality with better TypeScript support." data-professions='["front end developer","ui ux designer"]' data-responsibilities='["Write Code","Design Websites"]' data-departments='["Developers","Designers"]'>
+                        <div class="tool-card" id="tool-008" data-name="V0" data-modal-image="Gamma_course.jpg" data-url="https://v0.dev/" data-category="Web Design" data-description="Vercel's AI-powered UI generator that creates React/Next.js components from natural language." data-key-features='["React component generation","Next.js integration","Shadcn/ui components","Tailwind CSS","Production-ready code"]' data-subscription="Freemium" data-account="dev@rh-s.com" data-last-updated="2025-09-16" data-whats-new="Enhanced component library and improved code quality with better TypeScript support." data-professions='["front end developer","ui ux designer"]' data-responsibilities='["Write Code","Design Websites"]' data-departments='["Developers","Designers"]'>
                             <div class="subscription-corner"><span class="tag subscription-freemium">Freemium</span></div>
                             <div class="tool-content">
                                 <div class="tool-header"><img src="logos/v0.png" class="tool-logo" alt="V0 logo"><h3>V0</h3></div>
@@ -582,7 +586,7 @@
                                 </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-16</div></div>
                             </div>
                         </div>
-                        <div class="tool-card" id="tool-009" data-name="Genspark" data-url="https://www.genspark.ai/" data-category="Web Design" data-description="Comprehensive Super Agent AI workspace for website building, presentations, and research." data-key-features='["Multi-format creation","Research capabilities","Website building","Presentation tools","Content generation"]' data-subscription="Freemium" data-account="lg@rh-s.com" data-last-updated="2025-09-15" data-whats-new="Launched personal agents with GPT-4.1 and OpenAI Realtime API integration." data-professions='["content manager","project manager","web designer"]' data-responsibilities='["Design Websites","Create Presentations","Research Topics","Generate Images"]' data-departments='["Marketers","Managers","Designers"]'>
+                        <div class="tool-card" id="tool-009" data-name="Genspark" data-modal-image="Gamma_course.jpg" data-url="https://www.genspark.ai/" data-category="Web Design" data-description="Comprehensive Super Agent AI workspace for website building, presentations, and research." data-key-features='["Multi-format creation","Research capabilities","Website building","Presentation tools","Content generation"]' data-subscription="Freemium" data-account="lg@rh-s.com" data-last-updated="2025-09-15" data-whats-new="Launched personal agents with GPT-4.1 and OpenAI Realtime API integration." data-professions='["content manager","project manager","web designer"]' data-responsibilities='["Design Websites","Create Presentations","Research Topics","Generate Images"]' data-departments='["Marketers","Managers","Designers"]'>
                             <div class="subscription-corner"><span class="tag subscription-freemium">Freemium</span></div>
                             <div class="tool-content">
                                 <div class="tool-header"><img src="logos/genspark-icon.png" class="tool-logo" alt="Genspark logo"><h3>Genspark</h3></div>
@@ -607,7 +611,7 @@
                                 </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-15</div></div>
                             </div>
                         </div>
-                        <div class="tool-card" id="tool-010" data-name="DeepSite" data-url="https://deepsiteai.com/" data-category="Web Design" data-description="Affordable AI website generator powered by DeepSeek V3 with single HTML file output." data-key-features='["Single HTML output","Responsive design","DeepSeek V3 powered","No coding required","Fast generation"]' data-subscription="Freemium" data-account="dev@rh-s.com" data-last-updated="2025-09-13" data-whats-new="Integrated DeepSeek V3 model for improved website generation and added responsive templates." data-professions='["web designer","wordpress designer"]' data-responsibilities='["Design Websites","Write Code"]' data-departments='["Designers"]'>
+                        <div class="tool-card" id="tool-010" data-name="DeepSite" data-modal-image="Gamma_course.jpg" data-url="https://deepsiteai.com/" data-category="Web Design" data-description="Affordable AI website generator powered by DeepSeek V3 with single HTML file output." data-key-features='["Single HTML output","Responsive design","DeepSeek V3 powered","No coding required","Fast generation"]' data-subscription="Freemium" data-account="dev@rh-s.com" data-last-updated="2025-09-13" data-whats-new="Integrated DeepSeek V3 model for improved website generation and added responsive templates." data-professions='["web designer","wordpress designer"]' data-responsibilities='["Design Websites","Write Code"]' data-departments='["Designers"]'>
                             <div class="subscription-corner"><span class="tag subscription-freemium">Freemium</span></div>
                             <div class="tool-content">
                                 <div class="tool-header"><img src="logos/deepsite.png" class="tool-logo" alt="DeepSite logo"><h3>DeepSite</h3></div>
@@ -627,7 +631,7 @@
                                 </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-13</div></div>
                             </div>
                         </div>
-                        <div class="tool-card" id="tool-011" data-name="Cursor" data-url="https://cursor.sh/" data-category="Programming" data-description="AI-first code editor with advanced completion and natural language editing capabilities." data-key-features='["AI code completion","Context-aware assistance","Natural language editing","Local file access","Multiple AI models"]' data-subscription="Freemium" data-account="dev@rh-s.com" data-last-updated="2025-09-16" data-whats-new="Enhanced security features and improved AI model performance with better context understanding." data-professions='["back end developer","front end developer","full stack developer","mobile developer"]' data-responsibilities='["Write Code","Debug Software","Analyze Data"]' data-departments='["Developers"]'>
+                        <div class="tool-card" id="tool-011" data-name="Cursor" data-modal-image="Cursor.jpg" data-url="https://cursor.sh/" data-category="Programming" data-description="AI-first code editor with advanced completion and natural language editing capabilities." data-key-features='["AI code completion","Context-aware assistance","Natural language editing","Local file access","Multiple AI models"]' data-subscription="Freemium" data-account="dev@rh-s.com" data-last-updated="2025-09-16" data-whats-new="Enhanced security features and improved AI model performance with better context understanding." data-professions='["back end developer","front end developer","full stack developer","mobile developer"]' data-responsibilities='["Write Code","Debug Software","Analyze Data"]' data-departments='["Developers"]'>
                             <div class="subscription-corner"><span class="tag subscription-freemium">Freemium</span></div>
                             <div class="tool-content">
                                 <div class="tool-header"><img src="logos/images.jpg" class="tool-logo" alt="Cursor logo"><h3>Cursor</h3></div>
@@ -650,7 +654,7 @@
                                 </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-16</div></div>
                             </div>
                         </div>
-                        <div class="tool-card" id="tool-012" data-name="Claude Desktop" data-url="https://claude.ai/desktop" data-category="Programming" data-description="Desktop integration of Claude AI with local file access and Model Context Protocol support." data-key-features='["Desktop integration","Local file access","Model Context Protocol","Advanced reasoning","Code analysis"]' data-subscription="Freemium" data-account="dev@rh-s.com" data-last-updated="2025-09-16" data-whats-new="Added support for more file types and improved integration with development tools." data-professions='["back end developer","front end developer","analyst","content manager"]' data-responsibilities='["Write Code","Analyze Data","Research Topics","Manage Information"]' data-departments='["Developers","Managers","Marketers"]'>
+                        <div class="tool-card" id="tool-012" data-name="Claude Desktop" data-modal-image="Gamma_course.jpg" data-url="https://claude.ai/desktop" data-category="Programming" data-description="Desktop integration of Claude AI with local file access and Model Context Protocol support." data-key-features='["Desktop integration","Local file access","Model Context Protocol","Advanced reasoning","Code analysis"]' data-subscription="Freemium" data-account="dev@rh-s.com" data-last-updated="2025-09-16" data-whats-new="Added support for more file types and improved integration with development tools." data-professions='["back end developer","front end developer","analyst","content manager"]' data-responsibilities='["Write Code","Analyze Data","Research Topics","Manage Information"]' data-departments='["Developers","Managers","Marketers"]'>
                             <div class="subscription-corner"><span class="tag subscription-freemium">Freemium</span></div>
                             <div class="tool-content">
                                 <div class="tool-header"><img src="logos/Claude_AI_symbol.svg.png" class="tool-logo" alt="Claude Desktop logo"><h3>Claude Desktop</h3></div>
@@ -676,7 +680,7 @@
                                 </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-16</div></div>
                             </div>
                         </div>
-                        <div class="tool-card" id="tool-013" data-name="GitHub" data-url="https://github.com/" data-category="Hosting" data-description="Essential code collaboration platform with version control, CI/CD, and project management." data-key-features='["Git version control","CI/CD pipelines","Issue tracking","Project management","Code review"]' data-subscription="Freemium" data-account="dev@rh-s.com" data-last-updated="2025-09-16" data-whats-new="Enhanced GitHub Copilot integration and improved Actions workflow capabilities." data-professions='["back end developer","front end developer","full stack developer","qa","system administrator"]' data-responsibilities='["Host Repositories","Write Code","Debug Software","Deploy Applications","Automate Workflows"]' data-departments='["Developers"]'>
+                        <div class="tool-card" id="tool-013" data-name="GitHub" data-modal-image="Gamma_course.jpg" data-url="https://github.com/" data-category="Hosting" data-description="Essential code collaboration platform with version control, CI/CD, and project management." data-key-features='["Git version control","CI/CD pipelines","Issue tracking","Project management","Code review"]' data-subscription="Freemium" data-account="dev@rh-s.com" data-last-updated="2025-09-16" data-whats-new="Enhanced GitHub Copilot integration and improved Actions workflow capabilities." data-professions='["back end developer","front end developer","full stack developer","qa","system administrator"]' data-responsibilities='["Host Repositories","Write Code","Debug Software","Deploy Applications","Automate Workflows"]' data-departments='["Developers"]'>
                             <div class="subscription-corner"><span class="tag subscription-freemium">Freemium</span></div>
                             <div class="tool-content">
                                 <div class="tool-header"><img src="logos/github_logo_icon_229278.png" class="tool-logo" alt="GitHub logo"><h3>GitHub</h3></div>
@@ -702,7 +706,7 @@
                                 </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-16</div></div>
                             </div>
                         </div>
-                        <div class="tool-card" id="tool-014" data-name="GPT" data-url="https://openai.com/chatgpt" data-category="AI Assistant" data-description="OpenAI's flagship conversational AI with advanced reasoning, coding, and multimodal capabilities." data-key-features='["Advanced reasoning","Code generation","Multimodal input","Custom instructions","Plugin ecosystem"]' data-subscription="Freemium" data-account="admin@rh-s.com" data-last-updated="2025-09-16" data-whats-new="GPT-5 preview released with enhanced reasoning and improved coding capabilities." data-professions='["back end developer","content manager","analyst","project manager","copywriter"]' data-responsibilities='["Write Code","Debug Software","Write Content","Research Topics","Analyze Data","Automate Workflows"]' data-departments='["Developers","Marketers","Managers"]'>
+                        <div class="tool-card" id="tool-014" data-name="GPT" data-modal-image="GPT.jpg" data-url="https://openai.com/chatgpt" data-category="AI Assistant" data-description="OpenAI's flagship conversational AI with advanced reasoning, coding, and multimodal capabilities." data-key-features='["Advanced reasoning","Code generation","Multimodal input","Custom instructions","Plugin ecosystem"]' data-subscription="Freemium" data-account="admin@rh-s.com" data-last-updated="2025-09-16" data-whats-new="GPT-5 preview released with enhanced reasoning and improved coding capabilities." data-professions='["back end developer","content manager","analyst","project manager","copywriter"]' data-responsibilities='["Write Code","Debug Software","Write Content","Research Topics","Analyze Data","Automate Workflows"]' data-departments='["Developers","Marketers","Managers"]'>
                             <div class="subscription-corner"><span class="tag subscription-freemium">Freemium</span></div>
                             <div class="tool-content">
                                 <div class="tool-header"><img src="logos/chatgptWhite-removebg-preview.png" class="tool-logo" alt="GPT logo"><h3>GPT</h3></div>
@@ -731,12 +735,12 @@
                                 </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-16</div></div>
                             </div>
                         </div>
-                        <div class="tool-card" id="tool-015" data-name="Gemini" data-url="https://gemini.google.com/" data-category="AI Assistant" data-description="Google's AI assistant with deep workspace integration and extensive research capabilities." data-key-features='["Google integration","1M token context","Workspace sync","Research tools","Multimodal capabilities"]' data-subscription="Freemium" data-account="admin@rh-s.com" data-last-updated="2025-09-16" data-whats-new="Enhanced Google Workspace integration and improved research capabilities with real-time data access." data-professions='["content manager","analyst","seo manager","project manager"]' data-responsibilities='["Write Content","Research Topics","Analyze Data","Create Presentations","Manage Information"]' data-departments='["Marketers","Managers"]'>
+                        <div class="tool-card" id="tool-015" data-name="Gemini" data-modal-image="Gemini.jpg" data-url="https://gemini.google.com/" data-category="AI Assistant" data-description="Google's AI assistant with deep workspace integration and extensive research capabilities." data-key-features='["Google integration","1M token context","Workspace sync","Research tools","Multimodal capabilities"]' data-subscription="Freemium" data-account="admin@rh-s.com" data-last-updated="2025-09-16" data-whats-new="Enhanced Google Workspace integration and improved research capabilities with real-time data access." data-professions='["content manager","analyst","seo manager","project manager"]' data-responsibilities='["Write Content","Research Topics","Analyze Data","Create Presentations","Manage Information"]' data-departments='["Marketers","Managers"]'>
                             <div class="subscription-corner"><span class="tag subscription-freemium">Freemium</span></div>
                             <div class="tool-content">
                                 <div class="tool-header"><img src="logos/Google_Gemini_icon_2025.svg.png" class="tool-logo" alt="Gemini logo"><h3>Gemini</h3></div>
                                 <div class="tool-description">Google's AI assistant with deep workspace integration and extensive research capabilities.</div>
-                                <input type="checkbox" id="show-more-015" class="show-more-checkbox"><div class="tags-container">
+                                <input type="checkbox" id="show-more-015" class="show-more-checkboxs"><div class="tags-container">
                                     <div class="tags-visible">
                                         <span class="tag category" onclick="onTagClick('category', 'AI Assistant')">AI Assistant</span>
                                         <span class="tag department" onclick="onTagClick('department', 'Marketers')"><span class="tag-character-icon">🦈</span>Marketers</span>
@@ -757,7 +761,7 @@
                                 </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-16</div></div>
                             </div>
                         </div>
-                        <div class="tool-card" id="tool-016" data-name="Claude" data-url="https://claude.ai/" data-category="AI Assistant" data-description="Anthropic's AI assistant excelling in coding performance and reasoning with extended thinking." data-key-features='["Advanced reasoning","Extended thinking","Code analysis","Long context","Safety focus"]' data-subscription="Freemium" data-account="admin@rh-s.com" data-last-updated="2025-09-16" data-whats-new="Claude 4 Sonnet released with improved reasoning capabilities and better code understanding." data-professions='["back end developer","analyst","content manager","project manager"]' data-responsibilities='["Write Code","Debug Software","Analyze Data","Research Topics"]' data-departments='["Developers","Managers","Marketers"]'>
+                        <div class="tool-card" id="tool-016" data-name="Claude" data-modal-image="Gamma_course.jpg" data-url="https://claude.ai/" data-category="AI Assistant" data-description="Anthropic's AI assistant excelling in coding performance and reasoning with extended thinking." data-key-features='["Advanced reasoning","Extended thinking","Code analysis","Long context","Safety focus"]' data-subscription="Freemium" data-account="admin@rh-s.com" data-last-updated="2025-09-16" data-whats-new="Claude 4 Sonnet released with improved reasoning capabilities and better code understanding." data-professions='["back end developer","analyst","content manager","project manager"]' data-responsibilities='["Write Code","Debug Software","Analyze Data","Research Topics"]' data-departments='["Developers","Managers","Marketers"]'>
                             <div class="subscription-corner"><span class="tag subscription-freemium">Freemium</span></div>
                             <div class="tool-content">
                                 <div class="tool-header"><img src="logos/Claude_AI_symbol.svg.png" class="tool-logo" alt="Claude logo"><h3>Claude</h3></div>
@@ -783,7 +787,7 @@
                                 </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-16</div></div>
                             </div>
                         </div>
-                        <div class="tool-card" id="tool-017" data-name="Grok" data-url="https://x.ai/" data-category="AI Assistant" data-description="X's AI assistant with real-time information access and unique personality for social media insights." data-key-features='["Real-time data","X platform integration","Unfiltered responses","Social insights","Current events"]' data-subscription="Paid" data-account="lg@rh-s.com" data-last-updated="2025-09-15" data-whats-new="Enhanced real-time capabilities and improved social media trend analysis." data-professions='["social media manager","content manager","pr manager","influencer manager"]' data-responsibilities='["Write Content","Research Topics","Analyze Data"]' data-departments='["Marketers"]'>
+                        <div class="tool-card" id="tool-017" data-name="Grok" data-modal-image="grok.jpg" data-url="https://x.ai/" data-category="AI Assistant" data-description="X's AI assistant with real-time information access and unique personality for social media insights." data-key-features='["Real-time data","X platform integration","Unfiltered responses","Social insights","Current events"]' data-subscription="Paid" data-account="lg@rh-s.com" data-last-updated="2025-09-15" data-whats-new="Enhanced real-time capabilities and improved social media trend analysis." data-professions='["social media manager","content manager","pr manager","influencer manager"]' data-responsibilities='["Write Content","Research Topics","Analyze Data"]' data-departments='["Marketers"]'>
                             <div class="subscription-corner"><span class="tag subscription-paid">Paid</span></div>
                             <div class="tool-content">
                                 <div class="tool-header"><img src="logos/grok.png" class="tool-logo" alt="Grok logo"><h3>Grok</h3></div>
@@ -806,7 +810,7 @@
                                 </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-15</div></div>
                             </div>
                         </div>
-                        <div class="tool-card" id="tool-018" data-name="AI Studio" data-url="https://aistudio.google.com/" data-category="AI Assistant" data-description="Google's experimental AI platform providing free access to latest Gemini models without safety filters." data-key-features='["Latest models","No safety filters","Free access","Model tuning","API access"]' data-subscription="Free" data-account="dev@rh-s.com" data-last-updated="2025-09-16" data-whats-new="Added support for Gemini 2.0 Flash and improved fine-tuning capabilities." data-professions='["back end developer","graphic designer","content manager"]' data-responsibilities='["Write Code","Generate Images","Create Presentations","Design Websites"]' data-departments='["Developers","Designers","Marketers"]'>
+                        <div class="tool-card" id="tool-018" data-name="AI Studio" data-modal-image="Gamma_course.jpg" data-url="https://aistudio.google.com/" data-category="AI Assistant" data-description="Google's experimental AI platform providing free access to latest Gemini models without safety filters." data-key-features='["Latest models","No safety filters","Free access","Model tuning","API access"]' data-subscription="Free" data-account="dev@rh-s.com" data-last-updated="2025-09-16" data-whats-new="Added support for Gemini 2.0 Flash and improved fine-tuning capabilities." data-professions='["back end developer","graphic designer","content manager"]' data-responsibilities='["Write Code","Generate Images","Create Presentations","Design Websites"]' data-departments='["Developers","Designers","Marketers"]'>
                             <div class="subscription-corner"><span class="tag subscription-free">Free</span></div>
                             <div class="tool-content">
                                 <div class="tool-header"><img src="logos/aistudio.png" class="tool-logo" alt="AI Studio logo"><h3>AI Studio</h3></div>
@@ -831,7 +835,7 @@
                                 </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-16</div></div>
                             </div>
                         </div>
-                        <div class="tool-card" id="tool-019" data-name="NotebookLM" data-url="https://notebooklm.google.com/" data-category="AI Assistant" data-description="Google's research assistant specializing in document analysis with audio overview generation." data-key-features='["Document analysis","Audio overviews","Citation tracking","Research synthesis","Source grounding"]' data-subscription="Free" data-account="admin@rh-s.com" data-last-updated="2025-09-15" data-whats-new="Improved audio generation quality and added support for more document formats." data-professions='["analyst","content manager","project manager","financial manager"]' data-responsibilities='["Research Topics","Analyze Data","Summarize Documents","Manage Information"]' data-departments='["Managers","Marketers"]'>
+                        <div class="tool-card" id="tool-019" data-name="NotebookLM" data-modal-image="Notebook.jpg" data-url="https://notebooklm.google.com/" data-category="AI Assistant" data-description="Google's research assistant specializing in document analysis with audio overview generation." data-key-features='["Document analysis","Audio overviews","Citation tracking","Research synthesis","Source grounding"]' data-subscription="Free" data-account="admin@rh-s.com" data-last-updated="2025-09-15" data-whats-new="Improved audio generation quality and added support for more document formats." data-professions='["analyst","content manager","project manager","financial manager"]' data-responsibilities='["Research Topics","Analyze Data","Summarize Documents","Manage Information"]' data-departments='["Managers","Marketers"]'>
                             <div class="subscription-corner"><span class="tag subscription-free">Free</span></div>
                             <div class="tool-content">
                                 <div class="tool-header"><img src="logos/notebook.png" class="tool-logo" alt="NotebookLM logo"><h3>NotebookLM</h3></div>
@@ -856,7 +860,7 @@
                                 </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-15</div></div>
                             </div>
                         </div>
-                        <div class="tool-card" id="tool-020" data-name="Notion" data-url="https://www.notion.so/" data-category="Tools" data-description="All-in-one workspace with AI-powered features for content creation and organization." data-key-features='["AI writing assistant","Database management","Template library","Collaboration tools","Custom workflows"]' data-subscription="Freemium" data-account="admin@rh-s.com" data-last-updated="2025-09-16" data-whats-new="Enhanced AI features with better content generation and improved database functionality." data-professions='["project manager","content manager","analyst","hr manager"]' data-responsibilities='["Create Presentations","Write Content","Manage Information","Analyze Data"]' data-departments='["Managers","Marketers"]'>
+                        <div class="tool-card" id="tool-020" data-name="Notion" data-modal-image="Notion.jpg" data-url="https://www.notion.so/" data-category="Tools" data-description="All-in-one workspace with AI-powered features for content creation and organization." data-key-features='["AI writing assistant","Database management","Template library","Collaboration tools","Custom workflows"]' data-subscription="Freemium" data-account="admin@rh-s.com" data-last-updated="2025-09-16" data-whats-new="Enhanced AI features with better content generation and improved database functionality." data-professions='["project manager","content manager","analyst","hr manager"]' data-responsibilities='["Create Presentations","Write Content","Manage Information","Analyze Data"]' data-departments='["Managers","Marketers"]'>
                             <div class="subscription-corner"><span class="tag subscription-freemium">Freemium</span></div>
                             <div class="tool-content">
                                 <div class="tool-header"><img src="logos/Notion-logo.svg.png" class="tool-logo" alt="Notion logo"><h3>Notion</h3></div>
@@ -881,7 +885,7 @@
                                 </div><div class="tool-meta"><div class="last-updated">Updated: 2025-09-16</div></div>
                             </div>
                         </div>
-                        <div class="tool-card" id="tool-021" data-name="DropBox" data-url="https://www.dropbox.com/" data-category="Tools" data-description="Cloud storage platform with advanced collaboration and AI-powered search capabilities." data-key-features='["Cloud storage","File synchronization","AI search","Collaboration tools","Version control"]' data-subscription="Freemium" data-account="admin@rh-s.com" data-last-updated="2025-09-16" data-whats-new="Enhanced AI-powered search and improved collaboration features with smart notifications." data-professions='["content manager","project manager","graphic designer","video editor"]' data-responsibilities='["Source Assets","Manage Information","Host Repositories"]' data-departments='["Marketers","Managers","Designers","Videographers"]'>
+                        <div class="tool-card" id="tool-021" data-name="DropBox" data-modal-image="Dropbox.jpg" data-url="https://www.dropbox.com/" data-category="Tools" data-description="Cloud storage platform with advanced collaboration and AI-powered search capabilities." data-key-features='["Cloud storage","File synchronization","AI search","Collaboration tools","Version control"]' data-subscription="Freemium" data-account="admin@rh-s.com" data-last-updated="2025-09-16" data-whats-new="Enhanced AI-powered search and improved collaboration features with smart notifications." data-professions='["content manager","project manager","graphic designer","video editor"]' data-responsibilities='["Source Assets","Manage Information","Host Repositories"]' data-departments='["Marketers","Managers","Designers","Videographers"]'>
                             <div class="subscription-corner"><span class="tag subscription-freemium">Freemium</span></div>
                             <div class="tool-content">
                                 <div class="tool-header"><img src="logos/Dropbox_Icon.svg.png" class="tool-logo" alt="DropBox logo"><h3>DropBox</h3></div>
@@ -962,52 +966,35 @@
             modal.querySelector('.close').addEventListener('click', () => modal.style.display = 'none');
             window.addEventListener('click', (event) => { if (event.target === modal) modal.style.display = 'none'; });
             
-            window.openToolModal = function(card) {
+            function openToolModal(card) {
                 const data = card.dataset;
-                const logoSrc = card.querySelector('.tool-logo') ? card.querySelector('.tool-logo').src : '';
+                const modalImageSrc = data.modalImage || 'https://placehold.co/800x400/eeeeee/cccccc?text=Image+Not+Found';
 
-                // Determine the correct course link based on the tool name
                 let courseLink = 'https://oa-y.com/courses'; // Default link
                 const toolName = data.name.toLowerCase();
 
-                switch (toolName) {
-                    case 'gamma':
-                        courseLink = 'https://oa-y.com/courses/682ddd93006fec87d541ddfa';
-                        break;
-                    case 'notion':
-                        courseLink = 'https://oa-y.com/courses/68d2b5f1b3a7f6de34087c1c';
-                        break;
-                    case 'cursor':
-                        courseLink = 'https://oa-y.com/courses/6895eca862db728ad919c84e';
-                        break;
-                    case 'claude':
-                        courseLink = 'https://oa-y.com/courses/689c982562db728ad91871e1';
-                        break;
-                    case 'github':
-                        courseLink = 'https://oa-y.com/courses/682d9578006fec87d53b3de6';
-                        break;
-                    case 'gpt':
-                        courseLink = 'https://oa-y.com/courses/689c894d62db728ad912df36';
-                        break;
-                    case 'gemini':
-                        courseLink = 'https://oa-y.com/courses/68133ec6238d49ed905cbc75';
-                        break;
-                    case 'grok':
-                        courseLink = 'https://oa-y.com/courses/68132ec0238d49ed905c18bf';
-                        break;
-                    case 'notebooklm':
-                        courseLink = 'https://oa-y.com/courses/68d12e5eb3a7f6de348e1761';
-                        break;
-                    case 'dropbox':
-                        courseLink = 'https://oa-y.com/courses/689c3b9c62db728ad9f1f2a1';
-                        break;
+                // Specific course links
+                const courseMap = {
+                    'gamma': 'https://oa-y.com/courses/682ddd93006fec87d541ddfa',
+                    'notion': 'https://oa-y.com/courses/68d2b5f1b3a7f6de34087c1c',
+                    'cursor': 'https://oa-y.com/courses/6895eca862db728ad919c84e',
+                    'claude': 'https://oa-y.com/courses/689c982562db728ad91871e1',
+                    'github': 'https://oa-y.com/courses/682d9578006fec87d53b3de6',
+                    'gpt': 'https://oa-y.com/courses/689c894d62db728ad912df36',
+                    'gemini': 'https://oa-y.com/courses/68133ec6238d49ed905cbc75',
+                    'grok': 'https://oa-y.com/courses/68132ec0238d49ed905c18bf',
+                    'notebooklm': 'https://oa-y.com/courses/68d12e5eb3a7f6de348e1761',
+                    'dropbox': 'https://oa-y.com/courses/689c3b9c62db728ad9f1f2a1'
+                };
+                if (courseMap[toolName]) {
+                    courseLink = courseMap[toolName];
                 }
 
                 modal.querySelector('#modal-body').innerHTML = `
-                    <h2>${data.name}</h2>
-                     <div style="text-align: center; margin-bottom: 1.5rem;">
-                        <img src="${logoSrc}" alt="${data.name} logo" style="width: 388px; height: 218px; border-radius: 16px; object-fit: contain; background: var(--bg-primary); padding: 5px;">
+                    <div class="modal-header-image" style="text-align: center; margin-bottom: 1rem;">
+                        <img src="${modalImageSrc}" alt="${data.name} promo image" style="width: 100%; height: auto; max-height: 250px; border-radius: 8px; object-fit: cover; background: var(--bg-primary);">
                     </div>
+                    <h2 style="text-align: center; margin-bottom: 1.5rem;">${data.name}</h2>
                     <div class="modal-section">
                         <h3>Description</h3>
                         <p>${data.description}</p>
@@ -1049,7 +1036,7 @@
 
             document.querySelectorAll('.account-tool-tag').forEach(tag => {
                 tag.addEventListener('click', () => {
-                    const card = document.querySelector(`.tool-card[data-name="${tag.dataset.toolName}"]`);
+                    const card = document.querySelector(`.tool-card[data-name*="${tag.dataset.toolName.split(' ')[0]}"]`);
                     if (card) {
                         document.querySelector('.tab-link[data-tab="catalog"]').click();
                         setTimeout(() => openToolModal(card), 100);
