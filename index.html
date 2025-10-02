@@ -61,7 +61,7 @@
             --modal-backdrop: rgba(0,0,0,0.7);
             
             /* Status colors - adjusted for dark theme */
-            --success-bg: #1e3a2e;
+            --success-bg: rgba(74, 222, 128, 0.1);
             --success-text: #4ade80;
             --success-border: #22543d;
             --warning-bg: #3d2914;
@@ -71,7 +71,7 @@
             --danger-text: #f87171;
             --danger-border: #7f1d1d;
 
-            /* --- ✨ MODIFIED --- Revert logos to their original white color in Dark Mode */
+            /* --- Theme-aware logo colors for Dark Mode --- */
             .tool-card[data-name="GPT"] .tool-logo,
             .tool-card[data-name="gamma"] .tool-logo,
             .tool-card[data-name="midjourney"] .tool-logo,
@@ -83,427 +83,160 @@
                 filter: none; 
             }
             .tool-card[data-name="GitHub"] .tool-logo {
-                filter: invert(100%); /* Invert black GitHub logo to white */
+                filter: invert(100%);
+            }
+            
+            .info-highlight {
+                background-color: rgba(0, 150, 225, 0.2);
+                color: #2FBAFF;
+                border-color: rgba(47, 186, 255, 0.4);
             }
         }
         
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--text-primary);
-            background-color: var(--bg-primary);
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        .header {
-            width: 100%;
-            height: 180px;
-            background: linear-gradient(135deg, #f8f9fc 0%, #e8f2ff 30%, #fff9e6 70%, #f0f8ff 100%);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
-            padding: 0 3rem;
-            transition: all 0.4s ease;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: var(--text-primary); background-color: var(--bg-primary); transition: background-color 0.3s ease, color 0.3s ease; }
         
-        [data-theme="dark"] .header {
-            background: linear-gradient(135deg, #0f1629 0%, #1e3a8a 50%, #1e40af 100%);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+        /* Custom Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
         }
-
-        .header-left { z-index: 3; }
-
-        .header-title {
-            font-size: 3.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #1976d2 0%, #667eea 50%, #1976d2 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px rgba(25, 118, 210, 0.3);
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
         }
-
-        .header-right {
-            z-index: 3;
-            background: linear-gradient(135deg, #1976d2 0%, #667eea 100%);
-            color: white;
-            padding: 1.2rem 3rem;
-            border-radius: 60px;
-            font-size: 1.6rem;
-            font-weight: 800;
-            box-shadow: 0 8px 25px rgba(25, 118, 210, 0.4);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .header-right:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 12px 35px rgba(25, 118, 210, 0.5);
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-
-        .nav-tabs {
-            background: var(--bg-secondary);
-            border-bottom: 3px solid var(--accent-primary);
-            margin-bottom: 2rem;
-            box-shadow: 0 2px 5px var(--shadow);
-            position: relative;
-        }
-
-        .nav-tabs ul {
-            list-style: none;
-            display: flex;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-
-        .theme-toggle {
-            position: absolute;
-            top: 50%;
-            right: 1rem;
-            transform: translateY(-50%);
-            background: var(--bg-secondary);
-            border: 2px solid var(--accent-primary);
-            border-radius: 25px;
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-            font-size: 0.9rem;
-            color: var(--text-primary);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .theme-toggle:hover {
-            color: white;
+        ::-webkit-scrollbar-thumb {
             background-color: var(--accent-primary);
+            border-radius: 20px;
+            border: 2px solid var(--bg-primary);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: var(--accent-hover);
         }
 
-        .nav-tabs a {
-            display: block;
-            padding: 1rem 1.5rem;
-            text-decoration: none;
-            color: var(--text-secondary);
-            font-weight: 500;
-            border-bottom: 3px solid transparent;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-        }
-
-        .nav-tabs a.active, .nav-tabs a:hover {
-            color: var(--accent-primary);
-            border-bottom-color: var(--accent-primary);
-        }
-
-        .active-filter-tags {
+        .header { width: 100%; height: 180px; background: linear-gradient(135deg, #f8f9fc 0%, #e8f2ff 30%, #fff9e6 70%, #f0f8ff 100%); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 20px rgba(0,0,0,0.12); padding: 0 3rem; transition: all 0.4s ease; }
+        [data-theme="dark"] .header { background: linear-gradient(135deg, #0f1629 0%, #1e3a8a 50%, #1e40af 100%); box-shadow: 0 2px 10px rgba(0,0,0,0.4); }
+        .header-left { z-index: 3; }
+        .header-title { font-size: 3.5rem; font-weight: 800; background: linear-gradient(135deg, #1976d2 0%, #667eea 50%, #1976d2 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 30px rgba(25, 118, 210, 0.3); }
+        .header-right { z-index: 3; background: linear-gradient(135deg, #1976d2 0%, #667eea 100%); color: white; padding: 1.2rem 3rem; border-radius: 60px; font-size: 1.6rem; font-weight: 800; box-shadow: 0 8px 25px rgba(25, 118, 210, 0.4); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .header-right:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 12px 35px rgba(25, 118, 210, 0.5); }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 1rem; }
+        .nav-tabs { background: var(--bg-secondary); border-bottom: 3px solid var(--accent-primary); margin-bottom: 2rem; box-shadow: 0 2px 5px var(--shadow); position: relative; }
+        .nav-tabs ul { list-style: none; display: flex; max-width: 1400px; margin: 0 auto; padding: 0 1rem; }
+        .theme-toggle { position: absolute; top: 50%; right: 1rem; transform: translateY(-50%); background: var(--bg-secondary); border: 2px solid var(--accent-primary); border-radius: 25px; padding: 0.5rem 1rem; cursor: pointer; font-size: 0.9rem; color: var(--text-primary); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); display: flex; align-items: center; gap: 0.5rem; }
+        .theme-toggle:hover { color: white; background-color: var(--accent-primary); }
+        .nav-tabs a { display: block; padding: 1rem 1.5rem; text-decoration: none; color: var(--text-secondary); font-weight: 500; border-bottom: 3px solid transparent; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; }
+        .nav-tabs a.active, .nav-tabs a:hover { color: var(--accent-primary); border-bottom-color: var(--accent-primary); }
+        .active-filter-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; padding: 1rem; background: var(--bg-secondary); border-radius: 10px; box-shadow: 0 2px 5px var(--shadow); }
+        .active-filter-tag { background: var(--accent-primary); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; }
+        .active-filter-tag .remove { cursor: pointer; background: rgba(255,255,255,0.3); border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; }
+        .clear-filters { background: #dc3545; color: white; padding: 0.5rem 1rem; border: none; border-radius: 20px; font-size: 0.9rem; cursor: pointer; margin-left: 1rem; }
+        
+        .search-container { margin-bottom: 1.5rem; position: relative; }
+        #search-bar { width: 100%; padding: 0.8rem 1rem 0.8rem 2.5rem; font-size: 1rem; border-radius: 25px; border: 2px solid var(--border-color); background-color: var(--bg-secondary); color: var(--text-primary); transition: all 0.3s ease; }
+        #search-bar:focus { outline: none; border-color: var(--accent-primary); box-shadow: 0 0 10px rgba(0, 150, 225, 0.2); }
+        .search-container::before { content: '🔍'; position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-secondary); }
+        
+        .filter-toggle { position: fixed; left: 20px; top: 50%; transform: translateY(-50%); background: var(--accent-primary); color: white; padding: 15px; border: none; border-radius: 50%; font-size: 1.5rem; cursor: pointer; z-index: 1000; transition: all 0.3s ease; box-shadow: 0 4px 15px var(--shadow-strong); width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; }
+        .filter-toggle:hover { background: var(--accent-hover); transform: translateY(-50%) scale(1.1); }
+        
+        /* New Horizontal Filter Styles */
+        .horizontal-filters-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
+            gap: 1rem;
             padding: 1rem;
-            background: var(--bg-secondary);
+            background-color: var(--bg-secondary);
             border-radius: 10px;
+            margin-bottom: 1.5rem;
             box-shadow: 0 2px 5px var(--shadow);
+            transition: all 0.3s ease-in-out;
         }
-
-        .active-filter-tag {
-            background: var(--accent-primary);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
+        .horizontal-filters-container .filter-section {
+            flex: 1;
+            min-width: 160px;
             display: flex;
-            align-items: center;
+            flex-direction: column;
             gap: 0.5rem;
         }
-
-        .active-filter-tag .remove {
-            cursor: pointer;
-            background: rgba(255,255,255,0.3);
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
+        .horizontal-filters-container .filter-section h3 {
+           font-size: 0.9rem;
+           margin-bottom: 0;
+           color: var(--text-secondary);
         }
-
-        .clear-filters {
-            background: #dc3545;
-            color: white;
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            margin-left: 1rem;
+        .horizontal-filters-container .filter-section .export-button {
+           width: 100%;
         }
         
-        .search-container {
-            margin-bottom: 1.5rem;
+        /* Custom Select/Droplist Styles */
+        .select-wrapper {
             position: relative;
         }
-        #search-bar {
-            width: 100%;
-            padding: 0.8rem 1rem 0.8rem 2.5rem;
-            font-size: 1rem;
-            border-radius: 25px;
-            border: 2px solid var(--border-color);
-            background-color: var(--bg-secondary);
-            color: var(--text-primary);
-            transition: all 0.3s ease;
+        .select-wrapper::after {
+            content: '▼';
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            transition: color 0.3s ease;
         }
-        #search-bar:focus {
+        .select-wrapper:hover::after {
+            color: var(--accent-primary);
+        }
+        .filter-dropdown {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-color: var(--bg-primary);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.5rem 2.5rem 0.5rem 1rem;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            cursor: pointer;
+            width: 100%;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .filter-dropdown:hover {
+            border-color: var(--accent-hover);
+        }
+        .filter-dropdown:focus {
             outline: none;
             border-color: var(--accent-primary);
-            box-shadow: 0 0 10px rgba(0, 150, 225, 0.2);
+            box-shadow: 0 0 0 3px rgba(0, 150, 225, 0.2);
         }
-        .search-container::before {
-            content: '🔍';
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-secondary);
-        }
+
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+        .main-content { margin-bottom: 2rem; }
+        .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 1.5rem; }
+        .tool-card { background: var(--bg-secondary); border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px var(--shadow); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; position: relative; animation: fadeInUp 520ms ease-out both; border: 3px solid transparent; }
+        .tool-card:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 8px 30px rgba(102, 126, 234, 0.3); border-color: var(--accent-primary); }
+
+        .tool-card[data-name="n8n"],.tool-card[data-name="replit"],.tool-card[data-name="lovable"],.tool-card[data-name="Bolt.new"],.tool-card[data-name="V0"],.tool-card[data-name="Cursor"],.tool-card[data-name="Claude Desktop"],.tool-card[data-name="GitHub"],.tool-card[data-name="GPT"],.tool-card[data-name="Claude"],.tool-card[data-name="AI Studio"] { border-color: #28a745; }
+        .tool-card[data-name="gamma"],.tool-card[data-name="NotebookLM"],.tool-card[data-name="Notion"] { border-color: #dc3545; }
+        .tool-card[data-name="midjourney"],.tool-card[data-name="envato"],.tool-card[data-name="DeepSite"] { border-color: #6f42c1; }
+        .tool-card[data-name="Genspark"],.tool-card[data-name="Gemini"],.tool-card[data-name="Grok"],.tool-card[data-name="DropBox"] { border-color: #d63384; }
+        .tool-card[data-name="n8n"]:hover,.tool-card[data-name="replit"]:hover,.tool-card[data-name="lovable"]:hover,.tool-card[data-name="Bolt.new"]:hover,.tool-card[data-name="V0"]:hover,.tool-card[data-name="Cursor"]:hover,.tool-card[data-name="Claude Desktop"]:hover,.tool-card[data-name="GitHub"]:hover,.tool-card[data-name="GPT"]:hover,.tool-card[data-name="Claude"]:hover,.tool-card[data-name="AI Studio"]:hover { border-color: #28a745; background-color: rgba(40, 167, 69, 0.1); }
+        .tool-card[data-name="gamma"]:hover,.tool-card[data-name="NotebookLM"]:hover,.tool-card[data-name="Notion"]:hover { border-color: #dc3545; background-color: rgba(220, 53, 69, 0.1); }
+        .tool-card[data-name="midjourney"]:hover,.tool-card[data-name="envato"]:hover,.tool-card[data-name="DeepSite"]:hover { border-color: #6f42c1; background-color: rgba(111, 66, 193, 0.1); }
+        .tool-card[data-name="Genspark"]:hover,.tool-card[data-name="Gemini"]:hover,.tool-card[data-name="Grok"]:hover,.tool-card[data-name="DropBox"]:hover { border-color: #d63384; background-color: rgba(214, 51, 132, 0.1); }
         
-        .filter-toggle {
-            position: fixed;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: var(--accent-primary);
-            color: white;
-            padding: 15px;
-            border: none;
-            border-radius: 50%;
-            font-size: 1.5rem;
-            cursor: pointer;
-            z-index: 1000;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px var(--shadow-strong);
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .filter-toggle.open {
-            left: 340px;
-        }
-        
-        .filter-toggle:hover {
-            background: var(--accent-hover);
-            transform: translateY(-50%) scale(1.1);
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(14px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .main-content { display: flex; gap: 2rem; margin-bottom: 2rem; }
-        
-        .sidebar {
-            width: 300px;
-            background: var(--bg-secondary);
-            padding: 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px var(--shadow);
-            height: fit-content;
-            position: sticky;
-            top: 2rem;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .sidebar.hidden {
-            transform: translateX(-120%);
-            position: fixed;
-            left: 0;
-            z-index: 100;
-        }
-        
-        .content-area { 
-            flex: 1; 
-            transition: margin-left 0.3s ease;
-        }
-
-        .content-area.expanded {
-            margin-left: 0;
-        }
-        
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .tool-card {
-            background: var(--bg-secondary);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px var(--shadow);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            position: relative;
-            animation: fadeInUp 520ms ease-out both;
-            border: 3px solid transparent;
-        }
-
-        .tool-card:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.3);
-            border-color: var(--accent-primary);
-        }
-
-        /* --- Custom Card Outlines --- */
-        .tool-card[data-name="n8n"],
-        .tool-card[data-name="replit"],
-        .tool-card[data-name="lovable"],
-        .tool-card[data-name="Bolt.new"],
-        .tool-card[data-name="V0"],
-        .tool-card[data-name="Cursor"],
-        .tool-card[data-name="Claude Desktop"],
-        .tool-card[data-name="GitHub"],
-        .tool-card[data-name="GPT"],
-        .tool-card[data-name="Claude"],
-        .tool-card[data-name="AI Studio"] {
-            border-color: #28a745; /* Green */
-        }
-
-        .tool-card[data-name="gamma"],
-        .tool-card[data-name="NotebookLM"],
-        .tool-card[data-name="Notion"] {
-            border-color: #dc3545; /* Red */
-        }
-
-        .tool-card[data-name="midjourney"],
-        .tool-card[data-name="envato"],
-        .tool-card[data-name="DeepSite"] {
-            border-color: #6f42c1; /* Purple */
-        }
-
-        .tool-card[data-name="Genspark"],
-        .tool-card[data-name="Gemini"],
-        .tool-card[data-name="Grok"],
-        .tool-card[data-name="DropBox"] {
-            border-color: #d63384; /* Pink */
-        }
-        
-        .tool-card[data-name="n8n"]:hover,
-        .tool-card[data-name="replit"]:hover,
-        .tool-card[data-name="lovable"]:hover,
-        .tool-card[data-name="Bolt.new"]:hover,
-        .tool-card[data-name="V0"]:hover,
-        .tool-card[data-name="Cursor"]:hover,
-        .tool-card[data-name="Claude Desktop"]:hover,
-        .tool-card[data-name="GitHub"]:hover,
-        .tool-card[data-name="GPT"]:hover,
-        .tool-card[data-name="Claude"]:hover,
-        .tool-card[data-name="AI Studio"]:hover {
-            border-color: #28a745;
-            background-color: rgba(40, 167, 69, 0.1);
-        }
-
-        .tool-card[data-name="gamma"]:hover,
-        .tool-card[data-name="NotebookLM"]:hover,
-        .tool-card[data-name="Notion"]:hover {
-            border-color: #dc3545;
-            background-color: rgba(220, 53, 69, 0.1);
-        }
-
-        .tool-card[data-name="midjourney"]:hover,
-        .tool-card[data-name="envato"]:hover,
-        .tool-card[data-name="DeepSite"]:hover {
-            border-color: #6f42c1;
-            background-color: rgba(111, 66, 193, 0.1);
-        }
-
-        .tool-card[data-name="Genspark"]:hover,
-        .tool-card[data-name="Gemini"]:hover,
-        .tool-card[data-name="Grok"]:hover,
-        .tool-card[data-name="DropBox"]:hover {
-            border-color: #d63384;
-            background-color: rgba(214, 51, 132, 0.1);
-        }
-        
-        .subscription-corner {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            z-index: 10;
-        }
-
+        .subscription-corner { position: absolute; top: 1rem; right: 1rem; z-index: 10; }
         .tool-content { padding: 1.5rem; }
         .tool-header { display: flex; align-items: center; margin-bottom: 1rem; gap: 0.75rem; }
-        .tool-logo { 
-            width: 80px; 
-            height: 80px; 
-            border-radius: 16px; 
-            object-fit: contain;
-            transition: transform 0.3s ease-in-out, filter 0.3s ease;
-        }
-        .tool-icon { 
-            font-size: 80px; 
-            line-height: 1; 
-            flex-shrink: 0;
-            transition: transform 0.3s ease-in-out;
-        }
+        .tool-logo { width: 80px; height: 80px; border-radius: 16px; object-fit: contain; transition: transform 0.3s ease-in-out, filter 0.3s ease; }
+        .tool-icon { font-size: 80px; line-height: 1; flex-shrink: 0; transition: transform 0.3s ease-in-out; }
 
-        /* --- Theme-aware logo colors for Light Mode --- */
-        .tool-card[data-name="GPT"] .tool-logo,
-        .tool-card[data-name="gamma"] .tool-logo,
-        .tool-card[data-name="midjourney"] .tool-logo,
-        .tool-card[data-name="Bolt.new"] .tool-logo,
-        .tool-card[data-name="V0"] .tool-logo,
-        .tool-card[data-name="Grok"] .tool-logo,
-        .tool-card[data-name="AI Studio"] .tool-logo,
-        .tool-card[data-name="envato"] .tool-logo {
-            filter: invert(100%);
-        }
-
-        .tool-card:hover .tool-icon,
-        .tool-card:hover .tool-logo {
-            transform: rotate(-10deg) scale(1.2);
-        }
-
+        .tool-card[data-name="GPT"] .tool-logo, .tool-card[data-name="gamma"] .tool-logo, .tool-card[data-name="midjourney"] .tool-logo, .tool-card[data-name="Bolt.new"] .tool-logo, .tool-card[data-name="V0"] .tool-logo, .tool-card[data-name="Grok"] .tool-logo, .tool-card[data-name="AI Studio"] .tool-logo, .tool-card[data-name="envato"] .tool-logo { filter: invert(100%); }
+        .tool-card:hover .tool-icon, .tool-card:hover .tool-logo { transform: rotate(-10deg) scale(1.2); }
         .tool-card h3 { color: var(--text-primary); font-size: 1.3rem; margin: 0; }
         .tool-description { color: var(--text-secondary); margin-bottom: 1rem; font-size: 0.95rem; }
-
-        .tag {
-            padding: 0.35rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease-in-out; 
-            display: inline-flex;
-            align-items: center;
-        }
-        .tag:hover {
-            transform: translateY(-2px); 
-            box-shadow: 0 4px 12px var(--shadow-hover); 
-            filter: brightness(1.1); 
-        }
+        .tag { padding: 0.35rem 0.8rem; border-radius: 15px; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: all 0.2s ease-in-out; display: inline-flex; align-items: center; }
+        .tag:hover { transform: translateY(-2px); box-shadow: 0 4px 12px var(--shadow-hover); filter: brightness(1.1); }
         .tag-character-icon { margin-right: 0.5rem; }
-
         .tag.category { background: var(--tag-category); color: white; }
         .tag.department { background: var(--tag-department); color: white; }
         .tag.profession { background: var(--tag-profession); color: white; }
@@ -518,87 +251,78 @@
         .show-more-checkbox:checked ~ .tags-container .tags-hidden { display: flex; }
         .show-more-checkbox:checked ~ .tags-container .show-more-label .show-text { display: none; }
         .show-more-checkbox:checked ~ .tags-container .show-more-label .hide-text { display: inline; }
-
-        .show-more-label {
-            background: var(--bg-primary); color: var(--text-secondary); cursor: pointer;
-            font-size: 0.85rem; padding: 0.35rem 0.8rem; border-radius: 15px;
-            border: 1px solid var(--border-color); user-select: none;
-        }
+        .show-more-label { background: var(--bg-primary); color: var(--text-secondary); cursor: pointer; font-size: 0.85rem; padding: 0.35rem 0.8rem; border-radius: 15px; border: 1px solid var(--border-color); user-select: none; }
         .hide-text { display: none; }
-
-        .tool-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border-light);
-        }
+        .tool-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-light); }
         .last-updated { font-size: 0.8rem; color: var(--text-secondary); }
         
-        .modal {
-            display: none; position: fixed; z-index: 1000; left: 0; top: 0;
-            width: 100%; height: 100%; background-color: var(--modal-backdrop);
-            backdrop-filter: blur(5px);
-        }
-
-        .modal-content {
-            background-color: var(--bg-secondary); margin: 5% auto; padding: 2rem;
-            border-radius: 10px; width: 80%; max-width: 800px; max-height: 80vh;
-            overflow-y: auto; position: relative; box-shadow: 0 10px 30px var(--shadow-strong);
-            animation: fadeInUp 480ms ease-out both;
-        }
-
-        .close {
-            position: absolute; top: 1rem; right: 1.5rem;
-            color: var(--text-tertiary); font-size: 2rem; font-weight: bold; cursor: pointer;
-        }
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: var(--modal-backdrop); backdrop-filter: blur(5px); }
+        .modal-content { background-color: var(--bg-secondary); margin: 5% auto; padding: 2rem; border-radius: 10px; width: 80%; max-width: 800px; max-height: 80vh; overflow-y: auto; position: relative; box-shadow: 0 10px 30px var(--shadow-strong); animation: fadeInUp 480ms ease-out both; }
+        .close { position: absolute; top: 1rem; right: 1.5rem; color: var(--text-tertiary); font-size: 2rem; font-weight: bold; cursor: pointer; }
         .close:hover { color: var(--text-primary); }
-
-        .modal h2 { color: var(--text-primary); margin-bottom: 1rem; font-size: 2rem; }
-        .modal-section { margin-bottom: 2rem; }
-        .modal-section h3 {
-            color: var(--accent-primary); margin-bottom: 1rem; font-size: 1.3rem;
-            border-bottom: 2px solid var(--accent-primary); padding-bottom: 0.5rem;
-        }
+        .modal h2 { color: var(--text-primary); margin-bottom: 1rem; font-size: 2rem; text-align: center; }
+        
+        .modal-section { margin-bottom: 1.5rem; padding: 1.5rem; border: 2px solid var(--accent-primary); border-radius: 8px; }
+        .modal-section h3 { color: var(--accent-primary); font-size: 1.3rem; margin-bottom: 1rem; }
+        
         .feature-list { display: flex; flex-wrap: wrap; gap: 0.6rem 0.9rem; }
-        .feature-tag {
-            background: var(--bg-primary); color: var(--text-primary); padding: 0.25rem 0.75rem;
-            border-radius: 15px; font-size: 0.9rem; border: 1px solid var(--border-color);
-        }
-        .visit-button, .export-button {
-            background: var(--accent-primary); color: white; padding: 1rem 2rem; border: none;
-            border-radius: 5px; font-size: 1rem; cursor: pointer; text-decoration: none;
-            display: inline-block; margin: 0.5rem 1rem 0.5rem 0;
-        }
+        .feature-tag { background: var(--bg-primary); color: var(--text-primary); padding: 0.25rem 0.75rem; border-radius: 15px; font-size: 0.9rem; border: 1px solid var(--border-color); }
+        .visit-button, .export-button { background: var(--accent-primary); color: white; padding: 1rem 2rem; border: none; border-radius: 5px; font-size: 1rem; cursor: pointer; text-decoration: none; display: inline-block; margin: 0.5rem 1rem 0.5rem 0; }
         .visit-button:hover, .export-button:hover { background: var(--accent-hover); }
 
         .accounts-view { display: none; }
-        .account-card {
-            background: var(--bg-secondary); border-radius: 10px; padding: 1.5rem;
-            margin-bottom: 1.5rem; box-shadow: 0 2px 10px var(--shadow);
-            animation: fadeInUp 300ms ease both;
-        }
+        .account-card { background: var(--bg-secondary); border-radius: 10px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 2px 10px var(--shadow); animation: fadeInUp 300ms ease both; }
         .account-card h3 { color: var(--text-primary); margin-bottom: 1rem; font-size: 1.3rem; }
         .account-tools { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-        .account-tool-tag {
-            background: var(--accent-primary); color: white; padding: 0.25rem 0.75rem;
-            border-radius: 15px; font-size: 0.9rem; cursor: pointer; transition: all 0.3s ease;
-        }
+        .account-tool-tag { background: var(--accent-primary); color: white; padding: 0.25rem 0.75rem; border-radius: 15px; font-size: 0.9rem; cursor: pointer; transition: all 0.3s ease; }
         .account-tool-tag:hover { background: var(--accent-hover); }
+        
+        .access-info-container div {
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+        }
+        .access-info-container div:last-child {
+            margin-bottom: 0;
+        }
+        .info-highlight {
+            background-color: rgba(0, 150, 225, 0.15);
+            color: #007ab8;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-left: 0.5rem;
+            font-size: 1rem;
+            border: 1px solid rgba(0, 150, 225, 0.3);
+        }
 
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .modal-actions > * {
+            flex: 1; /* Make buttons take equal width */
+            margin: 0 !important; /* Override existing margins */
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 0.5rem; /* Adjust padding for better text fit */
+        }
+        
         @media (max-width: 768px) {
             .header { height: auto; padding: 1.5rem 1rem; flex-direction: column; text-align: center; gap: 1rem; }
             .header-title { font-size: 2.5rem; }
             .header-right { font-size: 1.2rem; padding: 0.8rem 1.5rem; }
             .main-content { flex-direction: column; }
-            .sidebar { width: 100%; position: static; transform: none; }
-            .sidebar.hidden { display: none; }
             .tools-grid { grid-template-columns: 1fr; }
             .nav-tabs ul { flex-wrap: wrap; justify-content: center; }
             .theme-toggle { position: static; transform: none; margin: 0.5rem auto; display: table; }
             .filter-toggle { display: block; bottom: 20px; top: auto; transform: none; }
-            .filter-toggle.open { left: 10px; }
+            .modal-actions { flex-direction: column; }
+            .horizontal-filters-container { flex-direction: column; }
         }
         .hidden { display: none; }
     </style>
@@ -627,73 +351,53 @@
     <div class="container">
         <div id="catalog-view" class="tab-content">
             <button class="filter-toggle" id="filter-toggle">🔍</button>
-            
             <div class="search-container">
                 <input type="text" id="search-bar" placeholder="Search by name or description...">
+            </div>
+            
+            <div id="horizontal-filters" class="horizontal-filters-container hidden">
+                <div class="filter-section">
+                    <h3>Category</h3>
+                    <div class="select-wrapper">
+                        <select class="filter-dropdown" id="category-filter"><option value="">All Categories</option><option value="AI Assistant">AI Assistant</option><option value="Automation">Automation</option><option value="Design">Design</option><option value="Hosting">Hosting</option><option value="Programming">Programming</option><option value="Tools">Tools</option><option value="Web Design">Web Design</option></select>
+                    </div>
+                </div>
+                <div class="filter-section">
+                    <h3>Department</h3>
+                    <div class="select-wrapper">
+                        <select class="filter-dropdown" id="department-filter"><option value="">All Departments</option><option value="Designers">Designers</option><option value="Developers">Developers</option><option value="Managers">Managers</option><option value="Marketers">Marketers</option><option value="Videographers">Videographers</option></select>
+                    </div>
+                </div>
+                <div class="filter-section">
+                    <h3>Profession</h3>
+                    <div class="select-wrapper">
+                        <select class="filter-dropdown" id="profession-filter"><option value="">All Professions</option></select>
+                    </div>
+                </div>
+                <div class="filter-section">
+                    <h3>Responsibility</h3>
+                    <div class="select-wrapper">
+                        <select class="filter-dropdown" id="responsibility-filter"><option value="">All Responsibilities</option></select>
+                    </div>
+                </div>
+                <div class="filter-section">
+                    <h3>Subscription</h3>
+                    <div class="select-wrapper">
+                        <select class="filter-dropdown" id="subscription-filter"><option value="">All Subscriptions</option><option value="Free">Free</option><option value="Freemium">Freemium</option><option value="Paid">Paid</option></select>
+                    </div>
+                </div>
+                <div class="filter-section">
+                    <h3 style="opacity: 0;">Export</h3>
+                    <button class="export-button" id="export-bookmarks" style="width: 100%; margin: 0;">Export</button>
+                </div>
             </div>
 
             <div id="active-filters" class="active-filter-tags hidden">
                 <div id="active-filter-list"></div>
                 <button class="clear-filters">Clear All</button>
             </div>
-            
             <div class="main-content">
-                <aside class="sidebar hidden" id="sidebar">
-                    <div class="filter-section">
-                        <h3>Category</h3>
-                        <select class="filter-dropdown" id="category-filter">
-                            <option value="">All Categories</option>
-                            <option value="AI Assistant">AI Assistant</option>
-                            <option value="Automation">Automation</option>
-                            <option value="Design">Design</option>
-                            <option value="Hosting">Hosting</option>
-                            <option value="Programming">Programming</option>
-                            <option value="Tools">Tools</option>
-                            <option value="Web Design">Web Design</option>
-                        </select>
-                    </div>
-
-                    <div class="filter-section">
-                        <h3>Department</h3>
-                        <select class="filter-dropdown" id="department-filter">
-                            <option value="">All Departments</option>
-                            <option value="Designers">Designers</option>
-                            <option value="Developers">Developers</option>
-                            <option value="Managers">Managers</option>
-                            <option value="Marketers">Marketers</option>
-                            <option value="Videographers">Videographers</option>
-                        </select>
-                    </div>
-
-                    <div class="filter-section">
-                        <h3>Profession</h3>
-                        <select class="filter-dropdown" id="profession-filter">
-                            <option value="">All Professions</option>
-                        </select>
-                    </div>
-                    
-                    <div class="filter-section">
-                        <h3>Responsibility</h3>
-                        <select class="filter-dropdown" id="responsibility-filter">
-                            <option value="">All Responsibilities</option>
-                        </select>
-                    </div>
-
-                    <div class="filter-section">
-                        <h3>Subscription</h3>
-                        <select class="filter-dropdown" id="subscription-filter">
-                            <option value="">All Subscriptions</option>
-                            <option value="Free">Free</option>
-                            <option value="Freemium">Freemium</option>
-                            <option value="Paid">Paid</option>
-                        </select>
-                    </div>
-                    <div class="filter-section">
-                         <button class="export-button" id="export-bookmarks" style="width: 100%; margin-top: 1rem;">Export Bookmarks</button>
-                    </div>
-                </aside>
-
-                <main class="content-area expanded" id="content-area">
+                <main>
                     <div class="tools-grid" id="tools-grid">
                         <div class="tool-card" id="tool-001" data-name="n8n" data-url="https://n8n.io/" data-category="Automation" data-description="Visual workflow automation platform with 400+ integrations for connecting apps and services." data-key-features='["Visual workflow builder","400+ integrations","Self-hostable","Custom functions","API integration"]' data-subscription="Freemium" data-account="dev@rh-s.com" data-last-updated="2025-09-16" data-whats-new="Added new AI nodes and improved performance for large workflows. Community edition remains free for self-hosting." data-professions='["back end developer","system administrator","project manager"]' data-responsibilities='["Automate Workflows","Write Code","Manage Information"]' data-departments='["Developers","Managers"]'>
                             <div class="subscription-corner"><span class="tag subscription-freemium">Freemium</span></div>
@@ -1260,15 +964,42 @@
             
             window.openToolModal = function(card) {
                 const data = card.dataset;
+                const logoSrc = card.querySelector('.tool-logo') ? card.querySelector('.tool-logo').src : '';
                 modal.querySelector('#modal-body').innerHTML = `
                     <h2>${data.name}</h2>
-                    <div class="modal-section"><h3>Description</h3><p>${data.description}</p></div>
-                    <div class="modal-section"><h3>Key Features</h3><div class="feature-list">${JSON.parse(data.keyFeatures).map(f => `<span class="feature-tag">${f}</span>`).join('')}</div></div>
-                    <div class="modal-section"><h3>Access Information</h3><p><strong>Account:</strong> ${data.account}</p><p><strong>Subscription:</strong> ${data.subscription}</p></div>
-                    <div class="modal-section"><h3>Relevant Professions</h3><div class="feature-list">${JSON.parse(data.professions).map(p => `<span class="feature-tag">${p}</span>`).join('')}</div></div>
-                    <div class="modal-section"><h3>Update Information</h3><p><strong>Last Updated:</strong> ${data.lastUpdated}</p>${data.whatsNew ? `<p style="background: var(--warning-bg); border: 1px solid var(--warning-border); border-radius: 5px; padding: 1rem; margin-top: 1rem;"><strong>What's New:</strong> ${data.whatsNew}</p>` : ''}</div>
-                    <a href="${data.url}" target="_blank" class="visit-button">Visit ${data.name}</a>
-                    <button class="export-button" onclick="bookmarkAI('${data.name}', '${data.url}')">Bookmark</button>`;
+                     <div style="text-align: center; margin-bottom: 1.5rem;">
+                        <img src="${logoSrc}" alt="${data.name} logo" style="width: 388px; height: 218px; border-radius: 16px; object-fit: contain; background: var(--bg-primary); padding: 5px;">
+                    </div>
+                    <div class="modal-section">
+                        <h3>Description</h3>
+                        <p>${data.description}</p>
+                    </div>
+                    <div class="modal-section">
+                        <h3>Key Features</h3>
+                        <div class="feature-list">${JSON.parse(data.keyFeatures).map(f => `<span class="feature-tag">${f}</span>`).join('')}</div>
+                    </div>
+                    <div class="modal-section">
+                        <h3>Access Information</h3>
+                        <div class="access-info-container">
+                            <div><strong>Account:</strong> <span class="info-highlight">${data.account}</span></div>
+                            <div><strong>Subscription:</strong> <span class="info-highlight">${data.subscription}</span></div>
+                        </div>
+                    </div>
+                    <div class="modal-section">
+                        <h3>Relevant Professions</h3>
+                        <div class="feature-list">${JSON.parse(data.professions).map(p => `<span class="feature-tag">${p}</span>`).join('')}</div>
+                    </div>
+                    <div class="modal-section">
+                        <h3>Update Information</h3>
+                        <p><strong>Last Updated:</strong> ${data.lastUpdated}</p>
+                        ${data.whatsNew ? `<p style="background: var(--success-bg); border: 1px solid var(--success-border); color: var(--success-text); border-radius: 5px; padding: 1rem; margin-top: 1rem;"><strong>What's New:</strong> ${data.whatsNew}</p>` : ''}
+                    </div>
+                    <div class="modal-actions">
+                        <a href="${data.url}" target="_blank" class="visit-button">Visit ${data.name}</a>
+                        <button class="export-button" onclick="bookmarkAI('${data.name}', '${data.url}')">Bookmark</button>
+                        <a href="https://oa-y.com/courses/682ddd93006fec87d541ddfa" target="_blank" class="visit-button">Visit course</a>
+                    </div>
+                `;
                 modal.style.display = 'block';
             }
 
@@ -1288,13 +1019,10 @@
                 });
             });
             
-            const sidebar = document.getElementById('sidebar');
-            const contentArea = document.getElementById('content-area');
             const filterToggle = document.getElementById('filter-toggle');
+            const horizontalFilters = document.getElementById('horizontal-filters');
             filterToggle.addEventListener('click', () => {
-                sidebar.classList.toggle('hidden');
-                contentArea.classList.toggle('expanded');
-                filterToggle.classList.toggle('open');
+                horizontalFilters.classList.toggle('hidden');
             });
 
             const filters = {
@@ -1375,6 +1103,9 @@
                 if (filterDropdown) {
                     filterDropdown.value = value;
                     filterDropdown.dispatchEvent(new Event('change'));
+                    if (horizontalFilters.classList.contains('hidden')) {
+                        horizontalFilters.classList.remove('hidden');
+                    }
                 }
             }
 
